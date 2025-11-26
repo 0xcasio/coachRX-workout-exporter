@@ -1,39 +1,42 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
-import { storage } from "@/lib/storage";
+import { useState, useEffect, useCallback } from "react";
+import { useParams } from "next/navigation";
+import { useWorkoutStorage } from "@/lib/storage";
 import { Workout } from "@/lib/types";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, RotateCcw, Download } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { ArrowLeft, Calendar, Download, Share2 } from "lucide-react";
+import { Header } from "@/components/Header";
+import { WorkoutSkeleton } from "@/components/skeleton";
 
-export default function WorkoutDetailPage({ params }: { params: Promise<{ id: string }> }) {
-    const router = useRouter();
+export default function WorkoutDetailPage() {
+    const params = useParams();
+    const id = params.id as string;
+    const { getWorkouts } = useWorkoutStorage();
     const [workout, setWorkout] = useState<Workout | null>(null);
+    const [loading, setLoading] = useState(true);
 
-    // Unwrap params using use() hook as per Next.js 15+ patterns or await it
-    // Since this is a client component, we need to handle the promise
-    const [id, setId] = useState<string>("");
+    const loadWorkout = useCallback(async () => {
+        try {
+            setLoading(true);
+            const workouts = await getWorkouts();
+            const found = workouts.find((w) => w.id === id);
+            setWorkout(found || null);
+        } catch (error) {
+            console.error("Error loading workout:", error);
+        } finally {
+            setLoading(false);
+        }
+    }, [id, getWorkouts]);
 
     useEffect(() => {
-        params.then(p => {
-            setId(p.id);
-            const workouts = storage.getWorkouts();
-            const found = workouts.find(w => w.id === p.id);
-            if (found) {
-                setWorkout(found);
-            } else {
-                router.push('/workouts');
-            }
-        });
-    }, [params, router]);
+        loadWorkout();
+    }, [loadWorkout]);
 
-    if (!workout) return null;
-
-    const handleExportJson = () => {
+    const handleExport = () => {
+        if (!workout) return;
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(workout, null, 2));
         const downloadAnchorNode = document.createElement('a');
         downloadAnchorNode.setAttribute("href", dataStr);
@@ -43,96 +46,122 @@ export default function WorkoutDetailPage({ params }: { params: Promise<{ id: st
         downloadAnchorNode.remove();
     };
 
-    return (
-        <main className="min-h-screen bg-background p-8">
-            <div className="max-w-3xl mx-auto space-y-8">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
+    if (loading) {
+        return (
+            <>
+                <Header />
+                <main className="min-h-screen bg-background p-8">
+                    <div className="max-w-3xl mx-auto">
+                        <WorkoutSkeleton />
+                    </div>
+                </main>
+            </>
+        );
+    }
+
+    if (!workout) {
+        return (
+            <>
+                <Header />
+                <main className="min-h-screen bg-background p-8 flex items-center justify-center">
+                    <div className="text-center space-y-4">
+                        <h1 className="text-2xl font-bold">Workout Not Found</h1>
                         <Link href="/workouts">
-                            <Button variant="ghost" size="icon">
-                                <ArrowLeft className="w-5 h-5" />
-                            </Button>
+                            <Button>Back to Library</Button>
                         </Link>
-                        <div>
-                            <h1 className="text-2xl font-bold">{workout.title}</h1>
-                            <div className="flex items-center text-muted-foreground gap-2 text-sm mt-1">
-                                <Calendar className="w-4 h-4" />
-                                {workout.date}
+                    </div>
+                </main>
+            </>
+        );
+    }
+
+    return (
+        <>
+            <Header />
+            <main className="min-h-screen bg-background p-8">
+                <div className="max-w-3xl mx-auto space-y-8">
+                    {/* Header */}
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                            <Link href="/workouts">
+                                <Button variant="ghost" size="icon">
+                                    <ArrowLeft className="w-5 h-5" />
+                                </Button>
+                            </Link>
+                            <div>
+                                <h1 className="text-3xl font-bold">{workout.title}</h1>
+                                <div className="flex items-center text-muted-foreground gap-2 mt-1">
+                                    <Calendar className="w-4 h-4" />
+                                    {workout.date}
+                                </div>
                             </div>
+                        </div>
+                        <div className="flex gap-2">
+                            <Button variant="outline" size="icon" onClick={handleExport}>
+                                <Download className="w-4 h-4" />
+                            </Button>
+                            <Button variant="outline" size="icon">
+                                <Share2 className="w-4 h-4" />
+                            </Button>
                         </div>
                     </div>
-                    <Button variant="outline" size="sm" onClick={handleExportJson}>
-                        <Download className="w-4 h-4 mr-2" />
-                        Export JSON
-                    </Button>
-                </div>
 
-                <div className="space-y-6">
-                    {workout.exercise_groups.map((group) => (
-                        <div key={group.group_id} className="space-y-4">
-                            <div className="flex items-center gap-2">
-                                <Badge variant="secondary" className="text-lg px-3 py-1">
-                                    Group {group.group_id}
-                                </Badge>
-                            </div>
-
-                            <div className="grid gap-4">
-                                {group.exercises.map((exercise, idx) => (
-                                    <Card key={idx} className="overflow-hidden">
-                                        <CardContent className="p-0">
-                                            <div className="flex flex-col sm:flex-row">
-                                                <div className="bg-muted/30 p-4 flex items-center justify-center sm:w-16 border-b sm:border-b-0 sm:border-r">
-                                                    <span className="font-mono font-bold text-muted-foreground">
-                                                        {exercise.exercise_number}
-                                                    </span>
-                                                </div>
-                                                <div className="p-4 flex-1 space-y-3">
-                                                    <div className="flex justify-between items-start">
-                                                        <Link href={`/exercises/${encodeURIComponent(exercise.name)}`} className="hover:underline decoration-primary underline-offset-4">
-                                                            <h3 className="font-semibold text-lg">{exercise.name}</h3>
-                                                        </Link>
-                                                    </div>
-
-                                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
-                                                        <div className="space-y-1">
-                                                            <span className="text-muted-foreground text-xs uppercase tracking-wider">Tempo</span>
-                                                            <div className="font-mono">{exercise.tempo || "-"}</div>
-                                                        </div>
-                                                        <div className="space-y-1">
-                                                            <span className="text-muted-foreground text-xs uppercase tracking-wider">Sets</span>
-                                                            <div className="font-mono">{exercise.sets || "-"}</div>
-                                                        </div>
-                                                        <div className="space-y-1">
-                                                            <span className="text-muted-foreground text-xs uppercase tracking-wider">Reps</span>
-                                                            <div className="font-mono">{exercise.rep_range || "-"}</div>
-                                                        </div>
-                                                        <div className="space-y-1">
-                                                            <span className="text-muted-foreground text-xs uppercase tracking-wider">Rest</span>
-                                                            <div className="flex items-center gap-1 font-mono">
-                                                                <Clock className="w-3 h-3" />
-                                                                {exercise.rest_seconds ? `${exercise.rest_seconds}s` : "-"}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    {exercise.notes && (
-                                                        <div className="bg-muted/50 p-3 rounded-md text-sm mt-2">
-                                                            <span className="font-semibold text-xs uppercase text-muted-foreground block mb-1">
-                                                                Notes / Weight
-                                                            </span>
-                                                            {exercise.notes}
-                                                        </div>
-                                                    )}
-                                                </div>
+                    {/* Exercise Groups */}
+                    <div className="space-y-6">
+                        {workout.exercise_groups.map((group, idx) => (
+                            <Card key={idx}>
+                                <CardHeader className="pb-3">
+                                    <CardTitle className="text-lg font-semibold text-primary">
+                                        {group.group_id}
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-6">
+                                    {group.exercises.map((exercise, exIdx) => (
+                                        <div key={exIdx} className="space-y-3 pb-4 last:pb-0 border-b last:border-0">
+                                            <div className="flex justify-between items-start">
+                                                <Link href={`/exercises/${encodeURIComponent(exercise.name)}`} className="hover:underline">
+                                                    <h3 className="font-medium text-lg">{exercise.name}</h3>
+                                                </Link>
+                                                <span className="text-sm font-mono bg-muted px-2 py-1 rounded">
+                                                    {exercise.tempo}
+                                                </span>
                                             </div>
-                                        </CardContent>
-                                    </Card>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
+
+                                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
+                                                <div>
+                                                    <span className="text-muted-foreground block text-xs uppercase tracking-wider">Sets</span>
+                                                    <span className="font-medium">{exercise.sets}</span>
+                                                </div>
+                                                <div>
+                                                    <span className="text-muted-foreground block text-xs uppercase tracking-wider">Reps</span>
+                                                    <span className="font-medium">{exercise.rep_range}</span>
+                                                </div>
+                                                <div>
+                                                    <span className="text-muted-foreground block text-xs uppercase tracking-wider">Rest</span>
+                                                    <span className="font-medium">{exercise.rest_seconds}s</span>
+                                                </div>
+                                                {exercise.rpe && (
+                                                    <div>
+                                                        <span className="text-muted-foreground block text-xs uppercase tracking-wider">RPE</span>
+                                                        <span className="font-medium">{exercise.rpe}</span>
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            {exercise.notes && (
+                                                <div className="bg-muted/50 p-3 rounded-md text-sm">
+                                                    <span className="font-semibold text-xs uppercase tracking-wider block mb-1 text-muted-foreground">Notes / Weight</span>
+                                                    {exercise.notes}
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </main>
+            </main>
+        </>
     );
 }

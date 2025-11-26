@@ -5,6 +5,7 @@ export interface Exercise {
   rep_range: string | null; // "10-12" or "10"
   sets: number | null;
   rest_seconds: number | null;
+  rpe: string | null;
   notes: string | null;
   metadata?: {
     previousWeight?: string; // Track progression

@@ -6,12 +6,13 @@ A Next.js web application that liberates your workout data from CoachRX screensh
 
 - **📸 Screenshot Upload**: Drag-and-drop CoachRX workout screenshots
 - **🤖 AI-Powered Extraction**: Uses Google Gemini Vision API to extract workout data
+- **🔐 User Authentication**: Secure sign-in with Clerk (Google, Email)
+- **☁️ Cloud Storage**: All workouts stored securely in Supabase
 - **📊 Progress Tracking**: View exercise history and weight progression charts
 - **📈 Visual Analytics**: Interactive charts powered by Recharts
-- **💾 Local Storage**: All data stored in your browser (no server required)
 - **📤 Data Export**: Export workouts as JSON for backup or migration
 - **🔄 Multi-Screenshot Merging**: Combine multiple screenshots into one workout session
-- **🧹 Duplicate Cleanup**: Automatically remove duplicate exercises from merged workouts
+- **👤 User Isolation**: Each user can only access their own workout data
 
 ## 🚀 Getting Started
 
@@ -19,6 +20,8 @@ A Next.js web application that liberates your workout data from CoachRX screensh
 
 - Node.js 18+ and npm
 - A Google Gemini API key ([Get one here](https://aistudio.google.com/app/apikey))
+- A Clerk account ([Sign up here](https://clerk.com))
+- A Supabase project ([Create one here](https://supabase.com))
 
 ### Installation
 
@@ -38,21 +41,44 @@ A Next.js web application that liberates your workout data from CoachRX screensh
    cp .env.example .env.local
    ```
    
-   Edit `.env.local` and add your Gemini API key:
+   Edit `.env.local` and add your API keys:
    ```
-   GEMINI_API_KEY=your_actual_api_key_here
+   GEMINI_API_KEY=your_gemini_api_key_here
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+   CLERK_SECRET_KEY=your_clerk_secret_key
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
    ```
 
-4. **Run the development server**
+4. **Configure Clerk JWT Template**
+   - Go to Clerk Dashboard → JWT Templates
+   - Create a new template named "supabase"
+   - Select "Supabase" from template options
+   - Save the template
+
+5. **Set up Supabase Database**
+   - Go to Supabase Dashboard → SQL Editor
+   - Run the SQL schema from `SETUP_GUIDE.md`
+   - Configure Third Party Auth with your Clerk domain
+
+6. **Run the development server**
    ```bash
    npm run dev
    ```
 
-5. **Open your browser**
+7. **Open your browser**
    
    Navigate to [http://localhost:3000](http://localhost:3000)
 
 ## 📖 Usage
+
+### Authentication
+
+**⚠️ Authentication Required**: You must sign in to use this application. All workout data is stored in the cloud and associated with your account.
+
+1. Click "Sign In" in the header
+2. Sign in with Google or create an account with email
+3. You're ready to start uploading workouts!
 
 ### Uploading Workouts
 
@@ -71,8 +97,8 @@ A Next.js web application that liberates your workout data from CoachRX screensh
 ### Managing Data
 
 - **Export**: Click the export button on any workout detail page to download as JSON
-- **Cleanup Duplicates**: Use the "Cleanup Duplicates" button in the workout library to remove duplicate exercises
 - **Delete**: Hover over a workout card and click the trash icon
+- **Sign Out**: Click your profile picture in the header
 
 ## 🛠️ Tech Stack
 
@@ -82,7 +108,9 @@ A Next.js web application that liberates your workout data from CoachRX screensh
 - **UI Components**: shadcn/ui
 - **Charts**: Recharts
 - **AI**: Google Gemini 2.0 Flash API
-- **Storage**: Browser LocalStorage
+- **Authentication**: Clerk
+- **Database**: Supabase (PostgreSQL)
+- **Storage**: Cloud-based (Supabase)
 
 ## 🏗️ Project Structure
 
@@ -98,20 +126,26 @@ src/
 │       └── [name]/page.tsx     # Exercise history & charts
 ├── components/
 │   ├── ui/                     # shadcn/ui components
+│   ├── Header.tsx              # Navigation with auth
 │   ├── upload-zone.tsx         # Drag-and-drop upload
 │   ├── date-picker.tsx         # Date selection
 │   └── exercise-chart.tsx      # Progress chart
 └── lib/
     ├── types.ts                # TypeScript interfaces
-    ├── storage.ts              # LocalStorage wrapper
+    ├── storage.ts              # Supabase storage hook
+    ├── supabase.ts             # Supabase client
+    ├── useSupabaseClient.ts    # Clerk + Supabase integration
     └── utils.ts                # Utility functions
 ```
 
 ## 🔒 Privacy & Security
 
-- **No Server Storage**: All workout data is stored locally in your browser
+- **Authentication Required**: All users must sign in to access the application
+- **Cloud Storage**: Workout data is stored securely in Supabase
+- **Row Level Security (RLS)**: Database policies ensure users can only access their own data
 - **API Key Security**: Your Gemini API key is stored server-side and never exposed to the client
-- **No Tracking**: No analytics or tracking scripts
+- **JWT Authentication**: Clerk JWTs are used to authenticate Supabase requests
+- **No Cross-User Access**: Users cannot see or access other users' workout data
 
 ## 🚢 Deployment
 
@@ -119,8 +153,14 @@ src/
 
 1. Push your code to GitHub
 2. Import your repository in [Vercel](https://vercel.com)
-3. Add your `GEMINI_API_KEY` environment variable in Vercel's project settings
-4. Deploy!
+3. Add environment variables in Vercel's project settings:
+   - `GEMINI_API_KEY`
+   - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+   - `CLERK_SECRET_KEY`
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+4. Configure Clerk for your production domain
+5. Deploy!
 
 ### Other Platforms
 
@@ -130,7 +170,7 @@ This is a standard Next.js app and can be deployed to any platform that supports
 - Render
 - Self-hosted with Docker
 
-**Important**: Make sure to set the `GEMINI_API_KEY` environment variable in your hosting platform.
+**Important**: Make sure to set all environment variables in your hosting platform and configure Clerk for your production domain.
 
 ## 🤝 Contributing
 
@@ -149,3 +189,5 @@ This is an unofficial tool and is not affiliated with or endorsed by CoachRX. Us
 - Built with [Next.js](https://nextjs.org/)
 - UI components from [shadcn/ui](https://ui.shadcn.com/)
 - Powered by [Google Gemini AI](https://ai.google.dev/)
+- Authentication by [Clerk](https://clerk.com/)
+- Database by [Supabase](https://supabase.com/)
