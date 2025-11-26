@@ -58,11 +58,14 @@ export default function ExerciseHistoryPage() {
             <main className="min-h-screen bg-background p-8">
                 <div className="max-w-3xl mx-auto space-y-8">
                     <div className="flex items-start gap-4">
-                        <Link href="/workouts">
-                            <Button variant="ghost" size="icon" className="shrink-0">
-                                <ArrowLeft className="w-5 h-5" />
-                            </Button>
-                        </Link>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="shrink-0"
+                            onClick={() => window.history.back()}
+                        >
+                            <ArrowLeft className="w-5 h-5" />
+                        </Button>
                         <div className="min-w-0 flex-1">
                             <h1 className="text-xl sm:text-2xl font-bold break-words">{name}</h1>
                             <div className="flex flex-wrap items-center text-muted-foreground gap-3 sm:gap-4 text-sm mt-1">

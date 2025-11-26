@@ -176,7 +176,7 @@ export default function Home() {
           <header className="text-center space-y-4">
             <h1 className="text-4xl font-bold tracking-tight">CoachRX Data Liberation</h1>
             <p className="text-xl text-muted-foreground">
-              Extract your workout data from screenshots using Gemini Vision
+              Own your CoachRX data, no need to ask your coach for it.
             </p>
           </header>
 
