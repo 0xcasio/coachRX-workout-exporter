@@ -16,9 +16,12 @@ import { format } from "date-fns";
 import { Header } from "@/components/Header";
 import { useWorkoutStorage } from "@/lib/storage";
 import { StatsOverview } from "@/components/stats-overview";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { saveWorkout, getWorkouts, isSignedIn } = useWorkoutStorage();
+  const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [recentWorkouts, setRecentWorkouts] = useState<Workout[]>([]);
@@ -104,6 +107,7 @@ export default function Home() {
           processedWorkouts.push(workout);
         } else {
           console.error(`Error processing ${file.name}: `, result.error);
+          toast.error(`Failed to process ${file.name}`);
         }
 
         // Add 2s delay between requests to respect rate limit
@@ -111,6 +115,7 @@ export default function Home() {
 
       } catch (error) {
         console.error(`Error processing ${file.name}: `, error);
+        toast.error(`Error processing ${file.name}`);
       }
 
       completed++;
@@ -158,11 +163,22 @@ export default function Home() {
       baseWorkout.sourceScreenshots = allScreenshots;
 
       // Save only the merged workout
-      await saveWorkout(baseWorkout); // Modified: Used saveWorkout from hook
-    } else {
+      await saveWorkout(baseWorkout);
+
+      toast.success("Workout uploaded successfully!");
+      router.push(`/workouts/${baseWorkout.id}`);
+
+    } else if (processedWorkouts.length > 0) {
       // Save individually
-      for (const w of processedWorkouts) { // Modified: Changed to for...of loop to await
-        await saveWorkout(w); // Modified: Used saveWorkout from hook
+      for (const w of processedWorkouts) {
+        await saveWorkout(w);
+      }
+
+      toast.success(`${processedWorkouts.length} workouts uploaded successfully!`);
+      if (processedWorkouts.length === 1) {
+        router.push(`/workouts/${processedWorkouts[0].id}`);
+      } else {
+        router.push('/workouts');
       }
     }
 
@@ -172,7 +188,6 @@ export default function Home() {
 
   return (
     <>
-      <Header />
       <main className="min-h-screen bg-background p-8">
         <div className="max-w-4xl mx-auto space-y-12">
           <header className="text-center space-y-4">
@@ -188,7 +203,7 @@ export default function Home() {
             </section>
           )}
 
-          <div className="space-y-6">
+          <div className="space-y-6 hidden md:block">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-4">
                 <div className="flex flex-col gap-2 w-full sm:w-auto">

@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Download, Share2, Edit, Save, X } from "lucide-react";
-import { Header } from "@/components/Header";
+
 import { WorkoutSkeleton } from "@/components/skeleton";
 
 export default function WorkoutDetailPage() {
@@ -70,7 +70,6 @@ export default function WorkoutDetailPage() {
     if (loading) {
         return (
             <>
-                <Header />
                 <main className="min-h-screen bg-background p-8">
                     <div className="max-w-3xl mx-auto">
                         <WorkoutSkeleton />
@@ -83,7 +82,6 @@ export default function WorkoutDetailPage() {
     if (!workout) {
         return (
             <>
-                <Header />
                 <main className="min-h-screen bg-background p-8 flex items-center justify-center">
                     <div className="text-center space-y-4">
                         <h1 className="text-2xl font-bold">Workout Not Found</h1>
@@ -98,7 +96,6 @@ export default function WorkoutDetailPage() {
 
     return (
         <>
-            <Header />
             <main className="min-h-screen bg-background p-8">
                 <div className="max-w-3xl mx-auto space-y-8">
                     {/* Header */}

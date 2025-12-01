@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { ArrowLeft, Search, Calendar as CalendarIcon, Dumbbell, Trash2, Plus, List } from "lucide-react";
-import { Header } from "@/components/Header";
 import { WorkoutSkeleton } from "@/components/skeleton";
 import { WorkoutCalendar } from "@/components/workout-calendar";
 import { format, parseISO, isSameDay, subDays, startOfMonth, endOfMonth, isWithinInterval } from "date-fns";
@@ -83,7 +82,6 @@ export default function WorkoutsPage() {
 
     return (
         <>
-            <Header />
             <main className="min-h-screen bg-background p-8">
                 <div className="max-w-4xl mx-auto space-y-8">
                     <div className="flex items-center justify-between flex-wrap gap-4">

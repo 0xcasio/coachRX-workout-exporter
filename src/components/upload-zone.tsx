@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Upload, X, FileImage, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface UploadZoneProps {
     onUpload: (files: File[]) => void;
@@ -16,6 +17,18 @@ interface UploadZoneProps {
 export function UploadZone({ onUpload, isProcessing, progress = 0 }: UploadZoneProps) {
     const [isDragging, setIsDragging] = useState(false);
     const [files, setFiles] = useState<File[]>([]);
+    const [previews, setPreviews] = useState<string[]>([]);
+
+    useEffect(() => {
+        // Create object URLs for previews
+        const newPreviews = files.map(file => URL.createObjectURL(file));
+        setPreviews(newPreviews);
+
+        // Cleanup
+        return () => {
+            newPreviews.forEach(url => URL.revokeObjectURL(url));
+        };
+    }, [files]);
 
     const handleDragOver = useCallback((e: React.DragEvent) => {
         e.preventDefault();
@@ -114,7 +127,14 @@ export function UploadZone({ onUpload, isProcessing, progress = 0 }: UploadZoneP
                         {files.map((file, i) => (
                             <Card key={i} className="p-3 flex items-center justify-between">
                                 <div className="flex items-center gap-3 overflow-hidden">
-                                    <FileImage className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                                    <div className="relative w-12 h-12 rounded-md overflow-hidden flex-shrink-0 border">
+                                        <Image
+                                            src={previews[i]}
+                                            alt="Preview"
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </div>
                                     <span className="text-sm truncate">{file.name}</span>
                                 </div>
                                 {!isProcessing && (
