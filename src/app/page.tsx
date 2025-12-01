@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
@@ -16,17 +15,20 @@ import { format } from "date-fns";
 
 import { Header } from "@/components/Header";
 import { useWorkoutStorage } from "@/lib/storage";
+import { StatsOverview } from "@/components/stats-overview";
 
 export default function Home() {
   const { saveWorkout, getWorkouts, isSignedIn } = useWorkoutStorage();
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [recentWorkouts, setRecentWorkouts] = useState<Workout[]>([]);
+  const [allWorkouts, setAllWorkouts] = useState<Workout[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [shouldMerge, setShouldMerge] = useState(true);
 
   const loadRecentWorkouts = useCallback(async () => {
     const workouts = await getWorkouts();
+    setAllWorkouts(workouts);
     setRecentWorkouts(workouts.slice(0, 3));
   }, [getWorkouts]);
 
@@ -179,6 +181,12 @@ export default function Home() {
               Own your CoachRX data, no need to ask your coach for it.
             </p>
           </header>
+
+          {allWorkouts.length > 0 && (
+            <section>
+              <StatsOverview workouts={allWorkouts} />
+            </section>
+          )}
 
           <div className="space-y-6">
             <div className="flex flex-col gap-4">
