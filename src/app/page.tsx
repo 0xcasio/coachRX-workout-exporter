@@ -13,7 +13,6 @@ import Link from "next/link";
 import { ArrowRight, Dumbbell, Calendar } from "lucide-react";
 import { format } from "date-fns";
 
-import { Header } from "@/components/Header";
 import { useWorkoutStorage } from "@/lib/storage";
 import { StatsOverview } from "@/components/stats-overview";
 import { toast } from "sonner";

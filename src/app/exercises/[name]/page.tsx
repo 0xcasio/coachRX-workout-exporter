@@ -9,7 +9,7 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, Dumbbell } from "lucide-react";
 import { ExerciseChart } from "@/components/exercise-chart";
 import { extractWeight } from "@/lib/utils";
-import { Header } from "@/components/Header";
+
 import { ExerciseCardSkeleton } from "@/components/skeleton";
 
 export default function ExerciseHistoryPage() {
@@ -54,7 +54,6 @@ export default function ExerciseHistoryPage() {
 
     return (
         <>
-            <Header />
             <main className="min-h-screen bg-background p-8">
                 <div className="max-w-3xl mx-auto space-y-8">
                     <div className="flex items-start gap-4">
