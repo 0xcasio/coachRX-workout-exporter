@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserButton, useUser, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-import { Home, Dumbbell, User, Plus } from "lucide-react";
+import { Home, Dumbbell, User, Plus, DollarSign } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function Sidebar() {
@@ -13,6 +13,7 @@ export function Sidebar() {
     const links = [
         { href: "/", label: "Dashboard", icon: Home },
         { href: "/workouts", label: "My Workouts", icon: Dumbbell },
+        { href: "/gym-cost", label: "Gym Cost", icon: DollarSign },
     ];
 
     return (
@@ -73,7 +74,7 @@ export function Sidebar() {
             </aside>
 
             {/* Mobile Bottom Nav */}
-            <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-background border-t z-50 pb-safe">
+            <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-background border-t z-50" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
                 <div className="relative grid grid-cols-5 h-16 items-center">
                     {/* Dashboard - Column 1 */}
                     <Link
@@ -100,7 +101,7 @@ export function Sidebar() {
                         )}
                     >
                         <Dumbbell className="w-6 h-6" />
-                        <span className="text-[10px] font-medium">My Workouts</span>
+                        <span className="text-[10px] font-medium">Workouts</span>
                     </Link>
 
                     {/* Upload CTA - Column 3 (Center) */}
@@ -114,8 +115,19 @@ export function Sidebar() {
                         <span className="text-[10px] font-medium text-primary mt-1">Upload</span>
                     </Link>
 
-                    {/* Empty spacer - Column 4 */}
-                    <div className="h-full"></div>
+                    {/* Gym Cost - Column 4 */}
+                    <Link
+                        href="/gym-cost"
+                        className={cn(
+                            "flex flex-col items-center gap-1 justify-center h-full",
+                            pathname === "/gym-cost"
+                                ? "text-primary"
+                                : "text-muted-foreground hover:text-foreground"
+                        )}
+                    >
+                        <DollarSign className="w-6 h-6" />
+                        <span className="text-[10px] font-medium">Cost</span>
+                    </Link>
 
                     {/* User Profile - Column 5 */}
                     <div className="flex flex-col items-center gap-1 justify-center h-full">

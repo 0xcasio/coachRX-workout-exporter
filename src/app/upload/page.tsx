@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { UploadZone } from "@/components/upload-zone";
 import { DatePicker } from "@/components/date-picker";
 import { processImageAction } from "@/app/actions";
@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import { useWorkoutStorage } from "@/lib/storage";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useGymCost } from "@/lib/gym-cost";
 
 export default function UploadPage() {
     const { saveWorkout } = useWorkoutStorage();
@@ -19,6 +20,17 @@ export default function UploadPage() {
     const [progress, setProgress] = useState(0);
     const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
     const [shouldMerge, setShouldMerge] = useState(true);
+
+    const { settings, calculateStats } = useGymCost();
+    const [potentialDrop, setPotentialDrop] = useState<number | null>(null);
+
+    useEffect(() => {
+        if (settings) {
+            calculateStats().then(stats => {
+                if (stats) setPotentialDrop(stats.potentialCostDrop);
+            });
+        }
+    }, [settings, calculateStats]);
 
     const resizeImage = (file: File): Promise<string> => {
         return new Promise((resolve) => {
@@ -148,7 +160,7 @@ export default function UploadPage() {
     };
 
     return (
-        <main className="min-h-screen bg-background p-4 md:p-8">
+        <main className="min-h-screen bg-background p-4 md:p-8 pb-20 md:pb-8">
             <div className="max-w-2xl mx-auto space-y-8">
                 <header className="text-center space-y-2">
                     <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Upload Workout</h1>

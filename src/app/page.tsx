@@ -17,6 +17,7 @@ import { useWorkoutStorage } from "@/lib/storage";
 import { StatsOverview } from "@/components/stats-overview";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { GymCostCard } from "@/components/gym-cost/dashboard-card";
 
 export default function Home() {
   const { saveWorkout, getWorkouts, isSignedIn } = useWorkoutStorage();
@@ -187,7 +188,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="min-h-screen bg-background p-8">
+      <main className="min-h-screen bg-background p-8 pb-20 md:pb-8">
         <div className="max-w-4xl mx-auto space-y-12">
           <header className="text-center space-y-4">
             <h1 className="text-4xl font-bold tracking-tight">CoachRX Data Liberation</h1>
@@ -195,6 +196,12 @@ export default function Home() {
               Own your CoachRX data, no need to ask your coach for it.
             </p>
           </header>
+
+
+
+          <section>
+            <GymCostCard />
+          </section>
 
           {allWorkouts.length > 0 && (
             <section>

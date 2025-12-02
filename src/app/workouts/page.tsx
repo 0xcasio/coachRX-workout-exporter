@@ -82,7 +82,7 @@ export default function WorkoutsPage() {
 
     return (
         <>
-            <main className="min-h-screen bg-background p-8">
+            <main className="min-h-screen bg-background p-8 pb-20 md:pb-8">
                 <div className="max-w-4xl mx-auto space-y-8">
                     <div className="flex items-center justify-between flex-wrap gap-4">
                         <div className="flex items-center gap-4">
