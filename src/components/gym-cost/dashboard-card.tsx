@@ -6,11 +6,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DollarSign, ArrowRight, TrendingDown } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export function GymCostCard() {
     const { settings, loading, calculateStats } = useGymCost();
     const [stats, setStats] = useState<GymCostStats | null>(null);
+    const router = useRouter();
 
     useEffect(() => {
         if (settings) {
@@ -51,12 +53,15 @@ export function GymCostCard() {
                 <DollarSign className="w-24 h-24" />
             </div>
             <CardHeader className="pb-2">
-                <CardTitle className="text-lg font-medium flex items-center justify-between">
-                    <span>Cost Per Workout</span>
-                    <Link href="/gym-cost" className="text-xs font-medium text-primary hover:underline flex items-center">
-                        View Details <ArrowRight className="w-3 h-3 ml-1" />
+                <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg font-medium">Cost Per Workout</CardTitle>
+                    <Link
+                        href="/gym-cost"
+                        className="text-xs font-medium text-primary hover:underline inline-flex items-center gap-1 relative z-10"
+                    >
+                        View Details <ArrowRight className="w-3 h-3" />
                     </Link>
-                </CardTitle>
+                </div>
             </CardHeader>
             <CardContent>
                 <div className="flex flex-col sm:flex-row sm:items-end gap-4">
