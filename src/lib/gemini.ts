@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Workout } from "./types";
 
-export const GEMINI_MODEL = "gemini-2.0-flash-exp";
+export const GEMINI_MODEL = "gemini-2.0-flash";
 
 export const WORKOUT_EXTRACTION_PROMPT = `Analyze this CoachRX workout screenshot and extract ALL visible workout data.
 
@@ -46,35 +46,35 @@ VALIDATION:
 - If multiple exercise groups exist, return them all`;
 
 export async function processImageWithGemini(
-    apiKey: string,
-    imageBase64: string
+  apiKey: string,
+  imageBase64: string
 ): Promise<Partial<Workout>> {
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: GEMINI_MODEL });
+  const genAI = new GoogleGenerativeAI(apiKey);
+  const model = genAI.getGenerativeModel({ model: GEMINI_MODEL });
 
-    // Remove data URL prefix if present
-    const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, "");
+  // Remove data URL prefix if present
+  const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, "");
 
-    const result = await model.generateContent([
-        WORKOUT_EXTRACTION_PROMPT,
-        {
-            inlineData: {
-                data: base64Data,
-                mimeType: "image/png", // Assuming PNG for now, can be dynamic
-            },
-        },
-    ]);
+  const result = await model.generateContent([
+    WORKOUT_EXTRACTION_PROMPT,
+    {
+      inlineData: {
+        data: base64Data,
+        mimeType: "image/png", // Assuming PNG for now, can be dynamic
+      },
+    },
+  ]);
 
-    const response = await result.response;
-    const text = response.text();
+  const response = await result.response;
+  const text = response.text();
 
-    // Clean up markdown code blocks if present
-    const jsonString = text.replace(/```json\n|\n```/g, "").trim();
+  // Clean up markdown code blocks if present
+  const jsonString = text.replace(/```json\n|\n```/g, "").trim();
 
-    try {
-        return JSON.parse(jsonString);
-    } catch (error) {
-        console.error("Failed to parse Gemini response:", text);
-        throw new Error("Failed to parse workout data from image");
-    }
+  try {
+    return JSON.parse(jsonString);
+  } catch (error) {
+    console.error("Failed to parse Gemini response:", text);
+    throw new Error("Failed to parse workout data from image");
+  }
 }

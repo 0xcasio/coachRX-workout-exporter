@@ -2,6 +2,8 @@
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Workout } from "@/lib/types";
+import { auth } from "@clerk/nextjs/server";
+import { createClient } from "@supabase/supabase-js";
 
 const GEMINI_MODEL = "gemini-2.0-flash";
 
@@ -54,6 +56,37 @@ export async function processImageAction(imageBase64: string): Promise<{ success
       return { success: false, error: "Server API key not configured" };
     }
 
+    // Rate Limiting Check
+    const { userId } = await auth();
+    if (!userId) {
+      return { success: false, error: "Authentication required" };
+    }
+
+    // Use Service Role to bypass RLS (avoids UUID casting issues with Clerk IDs)
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+
+    const today = new Date().toISOString().split('T')[0];
+    const { data: usageData, error: usageError } = await supabase
+      .from('api_usage')
+      .select('count')
+      .eq('user_id', userId)
+      .eq('date', today)
+      .maybeSingle();
+
+    if (usageError) {
+      console.error("Error checking usage:", usageError);
+      // Fail open or closed? Closed is safer for billing.
+      return { success: false, error: "Failed to check usage limits" };
+    }
+
+    const currentCount = usageData?.count || 0;
+    if (currentCount >= 20) {
+      return { success: false, error: "Daily limit reached (20 uploads/day). Please upgrade or wait until tomorrow." };
+    }
+
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: GEMINI_MODEL });
 
@@ -82,6 +115,14 @@ export async function processImageAction(imageBase64: string): Promise<{ success
         const jsonString = text.replace(/```json\n|\n```/g, "").trim();
 
         const data = JSON.parse(jsonString);
+
+        // Increment Usage Count
+        await supabase.from('api_usage').upsert({
+          user_id: userId,
+          date: today,
+          count: currentCount + 1
+        }, { onConflict: 'user_id, date' });
+
         return { success: true, data };
       } catch (error: any) {
         if (error.status === 429 && retries < maxRetries) {
