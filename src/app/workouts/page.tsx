@@ -52,7 +52,7 @@ export default function WorkoutsPage() {
             w.date.includes(query) ||
             w.exercise_groups.some(group =>
                 group.exercises.some(ex =>
-                    ex.name.toLowerCase().includes(query) ||
+                    (ex.name?.toLowerCase() || "").includes(query) ||
                     (ex.notes && ex.notes.toLowerCase().includes(query))
                 )
             );

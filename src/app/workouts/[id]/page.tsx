@@ -186,8 +186,8 @@ export default function WorkoutDetailPage() {
                                                             className="font-medium text-lg h-auto border-0 px-2 focus-visible:ring-1"
                                                         />
                                                     ) : (
-                                                        <Link href={`/exercises/${encodeURIComponent(exercise.name)}`} className="hover:underline">
-                                                            <h3 className="font-medium text-lg">{exercise.name}</h3>
+                                                        <Link href={`/exercises/${encodeURIComponent(exercise.name || 'unknown')}`} className="hover:underline">
+                                                            <h3 className="font-medium text-lg">{exercise.name || 'Unknown Exercise'}</h3>
                                                         </Link>
                                                     )}
                                                 </div>

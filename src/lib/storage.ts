@@ -137,7 +137,7 @@ export function useWorkoutStorage() {
             workouts.forEach(workout => {
                 workout.exercise_groups.forEach(group => {
                     group.exercises.forEach(exercise => {
-                        if (exercise.name.toLowerCase().trim() === searchName) {
+                        if (exercise.name?.toLowerCase().trim() === searchName) {
                             history.push({
                                 date: workout.date,
                                 workoutId: workout.id,
