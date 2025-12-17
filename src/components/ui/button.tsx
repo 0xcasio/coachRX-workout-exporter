@@ -5,19 +5,19 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-bold uppercase tracking-wide transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none border-2 focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none rounded-full focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background aria-invalid:border-destructive",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground border-primary hover:shadow-[4px_4px_0_0_rgb(var(--foreground))] active:shadow-[2px_2px_0_0_rgb(var(--foreground))] active:translate-x-[2px] active:translate-y-[2px]",
+        default: "bg-primary/90 backdrop-blur-md text-primary-foreground border border-white/20 hover:bg-primary hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98]",
         destructive:
-          "bg-destructive text-white border-destructive hover:shadow-[4px_4px_0_0_rgb(var(--foreground))] active:shadow-[2px_2px_0_0_rgb(var(--foreground))] active:translate-x-[2px] active:translate-y-[2px]",
+          "bg-destructive/90 backdrop-blur-md text-white border border-white/20 hover:bg-destructive hover:shadow-xl hover:shadow-destructive/30 active:scale-[0.98]",
         outline:
-          "border-2 border-foreground bg-background hover:bg-foreground hover:text-background active:shadow-[2px_2px_0_0_rgb(var(--foreground))] active:translate-x-[2px] active:translate-y-[2px]",
+          "border border-white/10 bg-background/40 backdrop-blur-md hover:bg-white/10 hover:border-white/20 active:scale-[0.98]",
         secondary:
-          "bg-secondary text-secondary-foreground border-secondary hover:shadow-[4px_4px_0_0_rgb(var(--foreground))] active:shadow-[2px_2px_0_0_rgb(var(--foreground))] active:translate-x-[2px] active:translate-y-[2px]",
+          "bg-secondary/60 backdrop-blur-md text-secondary-foreground border border-white/10 hover:bg-secondary/80 hover:border-white/20 active:scale-[0.98]",
         ghost:
-          "border-transparent hover:border-foreground hover:bg-accent hover:text-accent-foreground",
+          "border-transparent hover:bg-white/10 active:scale-[0.98]",
         link: "text-primary underline-offset-4 hover:underline border-transparent",
       },
       size: {

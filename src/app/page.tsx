@@ -196,9 +196,9 @@ function Dashboard() {
   return (
     <main className="min-h-screen bg-background p-8 pb-20 md:pb-8">
       <div className="max-w-4xl mx-auto space-y-12">
-        <header className="text-center space-y-4 border-b-2 border-border pb-8">
-          <h1 className="text-4xl lg:text-5xl font-bold uppercase tracking-tight">Dashboard</h1>
-          <p className="text-xl text-muted-foreground font-mono uppercase">
+        <header className="text-center space-y-4 border-b border-white/10 pb-8">
+          <h1 className="text-4xl lg:text-5xl font-semibold tracking-tight">Dashboard</h1>
+          <p className="text-xl text-muted-foreground">
             Your Workout Data Hub
           </p>
         </header>
@@ -251,10 +251,10 @@ function Dashboard() {
 
           {recentWorkouts.length > 0 && (
             <section className="space-y-6">
-              <div className="flex items-center justify-between border-b-2 border-border pb-4">
-                <h2 className="text-2xl lg:text-3xl font-bold uppercase tracking-tight">Recent Workouts</h2>
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <h2 className="text-2xl lg:text-3xl font-semibold tracking-tight">Recent Workouts</h2>
                 <Link href="/workouts">
-                  <Button variant="outline" className="gap-2 uppercase font-bold">
+                  <Button variant="outline" className="gap-2">
                     View All <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
@@ -263,18 +263,18 @@ function Dashboard() {
               <div className="grid gap-4 md:grid-cols-3">
                 {recentWorkouts.map((workout) => (
                   <Link key={workout.id} href={`/workouts/${workout.id}`}>
-                    <Card className="border-2 border-border hover:border-primary hover:shadow-[4px_4px_0_0_rgb(var(--primary))] transition-all cursor-pointer h-full">
+                    <Card className="hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 transition-all cursor-pointer h-full">
                       <CardHeader className="space-y-2">
-                        <CardTitle className="text-base font-bold uppercase line-clamp-1">
+                        <CardTitle className="text-base font-semibold line-clamp-1">
                           {workout.title}
                         </CardTitle>
-                        <div className="flex items-center text-xs text-muted-foreground gap-2 font-mono uppercase">
+                        <div className="flex items-center text-xs text-muted-foreground gap-2">
                           <Calendar className="w-3 h-3" />
                           {workout.date}
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <div className="flex items-center gap-2 text-sm font-bold uppercase">
+                        <div className="flex items-center gap-2 text-sm font-medium">
                           <Dumbbell className="w-4 h-4" />
                           {workout.exercise_groups.reduce((acc, g) => acc + g.exercises.length, 0)} Exercises
                         </div>

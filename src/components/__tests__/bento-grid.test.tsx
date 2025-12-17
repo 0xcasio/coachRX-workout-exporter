@@ -69,7 +69,8 @@ describe('BentoCard', () => {
     
     const card = container.firstChild as HTMLElement;
     expect(card?.className).toContain('group');
-    expect(card?.className).toContain('hover:border-primary');
+    expect(card?.className).toContain('hover:border-white/20');
+    expect(card?.className).toContain('backdrop-blur-2xl');
   });
 
   it('accepts custom className', () => {

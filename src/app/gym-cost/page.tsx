@@ -32,7 +32,7 @@ export default function GymCostPage() {
             <main className="min-h-screen bg-background p-4 md:p-8 pb-20 md:pb-8">
                 <div className="max-w-2xl mx-auto space-y-8">
                     <div className="flex items-center justify-between">
-                        <h1 className="text-3xl font-bold">Gym Cost Accountability</h1>
+                        <h1 className="text-3xl font-semibold">Gym Cost Accountability</h1>
                         {isEditing && (
                             <Button variant="ghost" onClick={() => setIsEditing(false)}>Cancel</Button>
                         )}

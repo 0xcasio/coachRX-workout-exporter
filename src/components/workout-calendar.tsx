@@ -27,25 +27,25 @@ export function WorkoutCalendar({
     };
 
     return (
-        <div className={cn("p-4 border-2 border-border bg-card text-card-foreground", className)}>
+        <div className={cn("p-4 border border-white/10 rounded-2xl bg-card/40 backdrop-blur-xl text-card-foreground", className)}>
             <DayPicker
                 mode="range"
                 selected={selectedRange}
                 onSelect={onSelectRange}
                 modifiers={modifiers}
                 modifiersClassNames={{
-                    hasWorkout: "bg-primary border-2 border-primary font-bold text-primary-foreground",
+                    hasWorkout: "bg-primary/30 border border-primary/50 font-semibold text-primary rounded-lg",
                 }}
                 classNames={{
-                    months: "font-mono",
-                    month: "uppercase",
-                    caption: "font-bold uppercase text-sm",
-                    head_cell: "font-bold uppercase text-xs",
-                    cell: "border-2 border-transparent hover:border-border",
-                    day: "border-2 border-transparent hover:border-primary font-bold",
-                    day_selected: "bg-primary text-primary-foreground border-primary",
-                    day_range_start: "bg-primary text-primary-foreground border-primary",
-                    day_range_end: "bg-primary text-primary-foreground border-primary",
+                    months: "",
+                    month: "",
+                    caption: "font-semibold text-sm",
+                    head_cell: "font-medium text-xs",
+                    cell: "border border-transparent hover:border-white/10 rounded-lg",
+                    day: "border border-transparent hover:border-primary/30 font-medium rounded-lg",
+                    day_selected: "bg-primary text-primary-foreground border-primary rounded-lg",
+                    day_range_start: "bg-primary text-primary-foreground border-primary rounded-l-lg",
+                    day_range_end: "bg-primary text-primary-foreground border-primary rounded-r-lg",
                 }}
                 styles={{
                     head_cell: {

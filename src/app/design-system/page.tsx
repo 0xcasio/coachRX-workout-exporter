@@ -18,107 +18,107 @@ import {
 /**
  * Design System Showcase Page
  * 
- * Clinical Performance Brutalism
- * Neo-Brutalism × Medical/Clinical × Tech Utility
+ * macOS/iOS Native Glassmorphism
+ * Strong Blur × Generous Radius × Refined Elegance
  */
 export default function DesignSystemPage() {
   return (
     <div className="min-h-screen bg-background p-8 pb-20 md:pb-8">
       <div className="max-w-7xl mx-auto space-y-16">
         {/* Header */}
-        <header className="space-y-4 border-b-2 border-border pb-8">
-          <h1 className="text-6xl lg:text-7xl font-bold uppercase tracking-tight text-foreground">
-            Clinical Performance
+        <header className="space-y-4 border-b border-white/10 pb-8">
+          <h1 className="text-6xl lg:text-7xl font-semibold tracking-tight text-foreground">
+            macOS/iOS Native
           </h1>
-          <h2 className="text-4xl lg:text-5xl font-bold uppercase tracking-tight text-primary">
-            Brutalism
+          <h2 className="text-4xl lg:text-5xl font-semibold tracking-tight text-primary">
+            Glassmorphism
           </h2>
-          <p className="text-lg text-muted-foreground font-mono uppercase tracking-wider max-w-2xl">
-            Neo-Brutalism × Medical/Clinical × Tech Utility
+          <p className="text-lg text-muted-foreground max-w-2xl">
+            Crunch Orange × Lavender Accents × Modern Elegance
           </p>
         </header>
 
         {/* Color Palette */}
         <section className="space-y-6">
-          <h2 className="text-3xl font-bold uppercase tracking-tight border-b-2 border-border pb-2">
+          <h2 className="text-3xl font-semibold tracking-tight border-b border-white/10 pb-2">
             Color Palette
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             <ColorSwatch
-              name="Background"
-              color="bg-background border-2 border-foreground"
-              hex="#0D0D0D"
+              name="Cascading White"
+              color="bg-[#F6F6F6] border border-white/10"
+              hex="#F6F6F6"
             />
             <ColorSwatch
-              name="Foreground"
-              color="bg-foreground"
-              hex="#FAFAFA"
+              name="Chinese Silver"
+              color="bg-[#E0DBF3]"
+              hex="#E0DBF3"
             />
             <ColorSwatch
-              name="Primary (Cyan)"
+              name="Crunch (Primary)"
               color="bg-primary"
-              hex="#00D9FF"
+              hex="#F3BA60"
             />
             <ColorSwatch
-              name="Accent (Green)"
-              color="bg-accent"
-              hex="#00FF88"
+              name="Dreamland"
+              color="bg-[#B6B1C0]"
+              hex="#B6B1C0"
             />
             <ColorSwatch
-              name="Destructive"
-              color="bg-destructive"
-              hex="#FF4444"
+              name="Warm Haze"
+              color="bg-[#736A6A]"
+              hex="#736A6A"
             />
             <ColorSwatch
-              name="Card"
-              color="bg-card border-2 border-border"
-              hex="#141414"
+              name="Lead"
+              color="bg-[#202022]"
+              hex="#202022"
             />
           </div>
         </section>
 
         {/* Typography */}
         <section className="space-y-6">
-          <h2 className="text-3xl font-bold uppercase tracking-tight border-b-2 border-border pb-2">
+          <h2 className="text-3xl font-semibold tracking-tight border-b border-white/10 pb-2">
             Typography
           </h2>
           <Card>
             <CardContent className="p-6 space-y-6">
               <div>
-                <p className="text-xs text-muted-foreground font-mono uppercase mb-2">Heading 1</p>
-                <h1 className="text-6xl font-bold uppercase tracking-tight">
-                  CLINICAL PERFORMANCE
+                <p className="text-xs text-muted-foreground mb-2">Heading 1</p>
+                <h1 className="text-6xl font-semibold tracking-tight">
+                  Glassmorphism Design
                 </h1>
               </div>
               <div>
-                <p className="text-xs text-muted-foreground font-mono uppercase mb-2">Heading 2</p>
-                <h2 className="text-4xl font-bold uppercase tracking-tight">
-                  BRUTALIST DESIGN
+                <p className="text-xs text-muted-foreground mb-2">Heading 2</p>
+                <h2 className="text-4xl font-semibold tracking-tight">
+                  Smooth & Elegant
                 </h2>
               </div>
               <div>
-                <p className="text-xs text-muted-foreground font-mono uppercase mb-2">Heading 3</p>
-                <h3 className="text-3xl font-bold uppercase tracking-tight">
-                  HIGH CONTRAST
+                <p className="text-xs text-muted-foreground mb-2">Heading 3</p>
+                <h3 className="text-3xl font-semibold tracking-tight">
+                  Modern Aesthetic
                 </h3>
               </div>
               <div>
-                <p className="text-xs text-muted-foreground font-mono uppercase mb-2">Body Text</p>
+                <p className="text-xs text-muted-foreground mb-2">Body Text</p>
                 <p className="text-base leading-relaxed">
                   This is body text using the Inter font family. The design emphasizes
-                  functionality, clarity, and technical precision. Every element serves
-                  a purpose.
+                  fitness-inspired aesthetics with vibrant purple and orange accents, strong backdrop blur,
+                  and generous rounded corners. Every element feels energetic and modern.
                 </p>
               </div>
               <div>
-                <p className="text-xs text-muted-foreground font-mono uppercase mb-2">Monospace (Technical)</p>
+                <p className="text-xs text-muted-foreground mb-2">Monospace (Technical)</p>
                 <p className="text-base font-mono">
                   const workoutData = extractFromScreenshot(image);
                   processWorkout(workoutData);
                 </p>
               </div>
               <div>
-                <p className="text-xs text-muted-foreground font-mono uppercase mb-2">Muted Text</p>
+                <p className="text-xs text-muted-foreground mb-2">Muted Text</p>
                 <p className="text-base text-muted-foreground">
                   Secondary information and metadata displayed with reduced contrast.
                 </p>
@@ -129,7 +129,7 @@ export default function DesignSystemPage() {
 
         {/* Bento Grid Showcase */}
         <section className="space-y-6">
-          <h2 className="text-3xl font-bold uppercase tracking-tight border-b-2 border-border pb-2">
+          <h2 className="text-3xl font-semibold tracking-tight border-b border-white/10 pb-2">
             Bento Grid Layout
           </h2>
           <BentoGrid>
@@ -180,13 +180,13 @@ export default function DesignSystemPage() {
 
         {/* Buttons */}
         <section className="space-y-6">
-          <h2 className="text-3xl font-bold uppercase tracking-tight border-b-2 border-border pb-2">
+          <h2 className="text-3xl font-semibold tracking-tight border-b border-white/10 pb-2">
             Buttons
           </h2>
           <Card>
             <CardContent className="p-6 space-y-6">
               <div>
-                <p className="text-xs text-muted-foreground font-mono uppercase mb-4">Variants</p>
+                <p className="text-xs text-muted-foreground mb-4">Variants</p>
                 <div className="flex flex-wrap gap-4">
                   <Button>Primary</Button>
                   <Button variant="secondary">Secondary</Button>
@@ -196,7 +196,7 @@ export default function DesignSystemPage() {
                 </div>
               </div>
               <div>
-                <p className="text-xs text-muted-foreground font-mono uppercase mb-4">Sizes</p>
+                <p className="text-xs text-muted-foreground mb-4">Sizes</p>
                 <div className="flex flex-wrap items-center gap-4">
                   <Button size="sm">Small</Button>
                   <Button size="default">Default</Button>
@@ -204,7 +204,7 @@ export default function DesignSystemPage() {
                 </div>
               </div>
               <div>
-                <p className="text-xs text-muted-foreground font-mono uppercase mb-4">Interactive States</p>
+                <p className="text-xs text-muted-foreground mb-4">Interactive States</p>
                 <div className="flex flex-wrap gap-4">
                   <Button>Normal</Button>
                   <Button disabled>Disabled</Button>
@@ -216,21 +216,21 @@ export default function DesignSystemPage() {
 
         {/* Form Elements */}
         <section className="space-y-6">
-          <h2 className="text-3xl font-bold uppercase tracking-tight border-b-2 border-border pb-2">
+          <h2 className="text-3xl font-semibold tracking-tight border-b border-white/10 pb-2">
             Form Elements
           </h2>
           <Card>
             <CardContent className="p-6 space-y-6">
               <div>
-                <label className="text-sm font-bold uppercase mb-2 block">Input Field</label>
+                <label className="text-sm font-medium mb-2 block">Input Field</label>
                 <Input placeholder="Enter text..." />
               </div>
               <div>
-                <label className="text-sm font-bold uppercase mb-2 block">Disabled Input</label>
+                <label className="text-sm font-medium mb-2 block">Disabled Input</label>
                 <Input placeholder="Disabled" disabled />
               </div>
               <div>
-                <label className="text-sm font-bold uppercase mb-2 block">Focused Input</label>
+                <label className="text-sm font-medium mb-2 block">Focused Input</label>
                 <Input placeholder="Click to focus" autoFocus />
               </div>
             </CardContent>
@@ -239,7 +239,7 @@ export default function DesignSystemPage() {
 
         {/* Badges */}
         <section className="space-y-6">
-          <h2 className="text-3xl font-bold uppercase tracking-tight border-b-2 border-border pb-2">
+          <h2 className="text-3xl font-semibold tracking-tight border-b border-white/10 pb-2">
             Badges
           </h2>
           <Card>
@@ -256,37 +256,37 @@ export default function DesignSystemPage() {
 
         {/* Cards */}
         <section className="space-y-6">
-          <h2 className="text-3xl font-bold uppercase tracking-tight border-b-2 border-border pb-2">
+          <h2 className="text-3xl font-semibold tracking-tight border-b border-white/10 pb-2">
             Cards
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle>Card Title</CardTitle>
+                <CardTitle>Native macOS</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Sharp edges, bold borders, high contrast. Functional over decorative.
+                  Strong backdrop blur with generous rounded corners. High transparency creates the signature macOS frosted glass effect.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Technical</CardTitle>
+                <CardTitle>Refined Polish</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Data-driven design with clinical precision and utility.
+                  Soft, diffused shadows and subtle borders. Every interaction feels smooth and native to Apple's design language.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Brutalist</CardTitle>
+                <CardTitle>Premium Feel</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Raw, unpolished, honest. No unnecessary decoration.
+                  Pill-shaped buttons, smooth transitions, and elegant transparency. The design feels premium and polished.
                 </p>
               </CardContent>
             </Card>
@@ -295,7 +295,7 @@ export default function DesignSystemPage() {
 
         {/* Grid System */}
         <section className="space-y-6">
-          <h2 className="text-3xl font-bold uppercase tracking-tight border-b-2 border-border pb-2">
+          <h2 className="text-3xl font-semibold tracking-tight border-b border-white/10 pb-2">
             Grid System
           </h2>
           <Card>
@@ -304,14 +304,14 @@ export default function DesignSystemPage() {
                 {Array.from({ length: 12 }).map((_, i) => (
                   <div
                     key={i}
-                    className="col-span-1 h-12 border-2 border-primary bg-primary/10 flex items-center justify-center font-mono text-xs"
+                    className="col-span-1 h-12 rounded-xl border border-white/10 bg-primary/20 backdrop-blur-md flex items-center justify-center font-mono text-xs shadow-lg shadow-primary/10"
                   >
                     {i + 1}
                   </div>
                 ))}
               </div>
-              <p className="text-sm text-muted-foreground mt-4 font-mono">
-                // 12-column grid system for precise layouts
+              <p className="text-sm text-muted-foreground mt-4">
+                12-column grid system for precise layouts
               </p>
             </CardContent>
           </Card>
@@ -337,9 +337,9 @@ function ColorSwatch({
 }) {
   return (
     <Card>
-      <div className={`h-24 ${color}`} />
+      <div className={`h-24 rounded-t-2xl ${color}`} />
       <CardContent className="p-3">
-        <p className="text-sm font-bold uppercase">{name}</p>
+        <p className="text-sm font-semibold">{name}</p>
         <p className="text-xs text-muted-foreground font-mono">{hex}</p>
       </CardContent>
     </Card>

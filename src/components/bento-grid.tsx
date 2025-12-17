@@ -49,11 +49,12 @@ export function BentoCard({ children, className, span }: BentoCardProps) {
   return (
     <div
       className={cn(
-        "group relative border-2 border-border",
-        "bg-card",
-        "hover:border-primary hover:bg-card",
-        "transition-all duration-100",
-        "hover:shadow-[4px_4px_0_0_rgb(var(--primary))]",
+        "group relative rounded-2xl",
+        "bg-card/40 backdrop-blur-2xl",
+        "border border-white/10",
+        "hover:border-white/20 hover:bg-card/50",
+        "transition-all duration-300 ease-out",
+        "hover:shadow-2xl hover:shadow-black/20",
         span,
         className
       )}
@@ -63,8 +64,8 @@ export function BentoCard({ children, className, span }: BentoCardProps) {
         {children}
       </div>
       
-      {/* Brutalist corner indicator */}
-      <div className="absolute top-0 right-0 w-0 h-0 border-l-[12px] border-l-transparent border-t-[12px] border-t-primary opacity-0 group-hover:opacity-100 transition-opacity duration-100" />
+      {/* macOS/iOS native shine effect */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/15 via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
     </div>
   );
 }

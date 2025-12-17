@@ -77,8 +77,8 @@ export function UploadZone({ onUpload, isProcessing, progress = 0 }: UploadZoneP
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
                 className={cn(
-                    "border-2 border-dashed p-10 text-center transition-all cursor-pointer bg-card",
-                    isDragging ? "border-primary bg-primary/10 hover:shadow-[4px_4px_0_0_rgb(var(--primary))]" : "border-border hover:border-primary",
+                    "border border-dashed rounded-2xl p-10 text-center transition-all cursor-pointer bg-card/40 backdrop-blur-sm",
+                    isDragging ? "border-primary bg-primary/20 hover:shadow-xl hover:shadow-primary/20" : "border-white/20 hover:border-primary/50",
                     isProcessing && "opacity-50 pointer-events-none"
                 )}
             >
@@ -92,12 +92,12 @@ export function UploadZone({ onUpload, isProcessing, progress = 0 }: UploadZoneP
                     disabled={isProcessing}
                 />
                 <label htmlFor="file-upload" className="cursor-pointer flex flex-col items-center gap-4">
-                    <div className="p-4 border-2 border-primary bg-primary/10">
-                        <Upload className="w-8 h-8 text-primary" strokeWidth={2.5} />
+                    <div className="p-4 border border-primary/50 rounded-xl bg-primary/20 backdrop-blur-sm">
+                        <Upload className="w-8 h-8 text-primary" strokeWidth={2} />
                     </div>
                     <div>
-                        <h3 className="text-lg font-bold uppercase">Drop Screenshots Here</h3>
-                        <p className="text-sm text-muted-foreground mt-2 font-mono uppercase">
+                        <h3 className="text-lg font-semibold">Drop Screenshots Here</h3>
+                        <p className="text-sm text-muted-foreground mt-2">
                             Or Click To Browse (PNG, JPG)
                         </p>
                     </div>
@@ -106,12 +106,11 @@ export function UploadZone({ onUpload, isProcessing, progress = 0 }: UploadZoneP
 
             {files.length > 0 && (
                 <div className="space-y-4">
-                    <div className="flex items-center justify-between border-b-2 border-border pb-4">
-                        <h4 className="font-bold uppercase font-mono">{files.length} Files Selected</h4>
+                    <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                        <h4 className="font-semibold">{files.length} Files Selected</h4>
                         <Button
                             onClick={handleProcess}
                             disabled={isProcessing}
-                            className="uppercase font-bold"
                         >
                             {isProcessing ? (
                                 <>
@@ -126,9 +125,9 @@ export function UploadZone({ onUpload, isProcessing, progress = 0 }: UploadZoneP
 
                     <div className="grid gap-2">
                         {files.map((file, i) => (
-                            <Card key={i} className="p-3 flex items-center justify-between border-2 border-border">
+                            <Card key={i} className="p-3 flex items-center justify-between">
                                 <div className="flex items-center gap-3 overflow-hidden">
-                                    <div className="relative w-12 h-12 overflow-hidden flex-shrink-0 border-2 border-border">
+                                    <div className="relative w-12 h-12 overflow-hidden flex-shrink-0 border border-white/10 rounded-lg">
                                         <Image
                                             src={previews[i]}
                                             alt="Preview"
@@ -136,13 +135,13 @@ export function UploadZone({ onUpload, isProcessing, progress = 0 }: UploadZoneP
                                             className="object-cover"
                                         />
                                     </div>
-                                    <span className="text-sm font-mono truncate uppercase">{file.name}</span>
+                                    <span className="text-sm truncate">{file.name}</span>
                                 </div>
                                 {!isProcessing && (
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="h-8 w-8 border-2 border-border hover:border-destructive hover:text-destructive"
+                                        className="h-8 w-8 border border-white/10 hover:border-destructive/30 hover:text-destructive"
                                         onClick={() => removeFile(i)}
                                     >
                                         <X className="w-4 h-4" />

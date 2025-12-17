@@ -5,18 +5,18 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center justify-center border-2 px-2 py-1 text-xs font-bold uppercase tracking-wide w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring aria-invalid:border-destructive transition-all overflow-hidden",
+  "inline-flex items-center justify-center border px-3 py-1 text-xs font-medium rounded-full w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background aria-invalid:border-destructive transition-all overflow-hidden backdrop-blur-md",
   {
     variants: {
       variant: {
         default:
-          "border-primary bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
+          "border-white/20 bg-primary/30 text-primary [a&]:hover:bg-primary/40",
         secondary:
-          "border-secondary bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
+          "border-white/10 bg-secondary/30 text-secondary-foreground [a&]:hover:bg-secondary/50",
         destructive:
-          "border-destructive bg-destructive text-white [a&]:hover:bg-destructive/90",
+          "border-white/20 bg-destructive/30 text-destructive [a&]:hover:bg-destructive/40",
         outline:
-          "border-foreground text-foreground bg-transparent [a&]:hover:bg-foreground [a&]:hover:text-background",
+          "border-white/10 text-foreground bg-background/40 [a&]:hover:bg-white/10",
       },
     },
     defaultVariants: {

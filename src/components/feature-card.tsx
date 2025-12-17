@@ -33,15 +33,15 @@ export function FeatureCard({
 }: FeatureCardProps) {
   return (
     <div className={cn("flex flex-col h-full", className)}>
-      {/* Icon - Brutalist style */}
+      {/* Icon - macOS/iOS native style */}
       {Icon && (
-        <div className="mb-4 inline-flex items-center justify-center w-12 h-12 border-2 border-primary bg-primary text-primary-foreground">
-          <Icon className="w-6 h-6" strokeWidth={2.5} />
+        <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/30 backdrop-blur-md border border-white/20 text-primary shadow-lg shadow-primary/20">
+          <Icon className="w-6 h-6" strokeWidth={2} />
         </div>
       )}
 
-      {/* Title - Bold, uppercase, technical */}
-      <h3 className="text-xl lg:text-2xl font-bold uppercase tracking-tight mb-3 text-foreground">
+      {/* Title - Smooth, elegant */}
+      <h3 className="text-xl lg:text-2xl font-semibold mb-3 text-foreground">
         {title}
       </h3>
 

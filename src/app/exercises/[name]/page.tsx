@@ -109,7 +109,7 @@ export default function ExerciseHistoryPage() {
                                                         </div>
                                                     </div>
                                                     {entry.notes && (
-                                                        <div className="bg-muted px-3 py-1.5 rounded text-sm font-mono shrink-0">
+                                                        <div className="bg-muted px-3 py-1.5 rounded-lg text-sm shrink-0">
                                                             {entry.notes}
                                                         </div>
                                                     )}

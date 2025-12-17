@@ -56,7 +56,7 @@ describe('FeatureCard', () => {
     expect(screen.getByText('Action Button')).toBeDefined();
   });
 
-  it('applies bold uppercase styling to title', () => {
+  it('applies semibold styling to title', () => {
     render(
       <FeatureCard
         title="Test Feature"
@@ -65,8 +65,7 @@ describe('FeatureCard', () => {
     );
     
     const title = screen.getByText('Test Feature');
-    expect(title.className).toContain('font-bold');
-    expect(title.className).toContain('uppercase');
+    expect(title.className).toContain('font-semibold');
   });
 
   it('accepts custom className', () => {

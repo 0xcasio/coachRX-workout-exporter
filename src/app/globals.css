@@ -44,85 +44,78 @@
 }
 
 :root {
-  /* Clinical Performance Brutalism - Sharp edges, minimal radius */
-  --radius: 0rem;
+  /* macOS/iOS Native Glassmorphism - Generous rounded corners, strong blur */
+  --radius: 1.5rem;
   
-  /* Light mode (optional, but brutalist works best in dark) */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0 0 0);
-  --card: oklch(0.98 0 0);
-  --card-foreground: oklch(0 0 0);
-  --popover: oklch(0.98 0 0);
-  --popover-foreground: oklch(0 0 0);
-  --primary: oklch(0.65 0.2 200);
-  --primary-foreground: oklch(0 0 0);
-  --secondary: oklch(0.95 0 0);
-  --secondary-foreground: oklch(0 0 0);
-  --muted: oklch(0.92 0 0);
-  --muted-foreground: oklch(0.4 0 0);
-  --accent: oklch(0.7 0.15 150);
-  --accent-foreground: oklch(0 0 0);
+  /* Light mode - Using exact hex codes from palette */
+  /* Cascading White #F6F6F6, Chinese Silver #E0DBF3, Crunch #F3BA60, Dreamland #B6B1C0, Warm Haze #736A6A, Lead #202022 */
+  --background: #F6F6F6;
+  --foreground: #202022;
+  --card: color-mix(in srgb, #F6F6F6 50%, transparent);
+  --card-foreground: #202022;
+  --popover: color-mix(in srgb, #F6F6F6 75%, transparent);
+  --popover-foreground: #202022;
+  --primary: #F3BA60;
+  --primary-foreground: #202022;
+  --secondary: #E0DBF3;
+  --secondary-foreground: #202022;
+  --muted: #B6B1C0;
+  --muted-foreground: #736A6A;
+  --accent: #E0DBF3;
+  --accent-foreground: #202022;
   --destructive: oklch(0.6 0.25 25);
-  --border: oklch(0 0 0);
-  --input: oklch(0.98 0 0);
-  --ring: oklch(0.65 0.2 200);
-  --chart-1: oklch(0.65 0.2 200);
-  --chart-2: oklch(0.7 0.15 150);
-  --chart-3: oklch(0.55 0.2 280);
-  --chart-4: oklch(0.6 0.25 25);
-  --chart-5: oklch(0.5 0.2 60);
-  --sidebar: oklch(0.98 0 0);
-  --sidebar-foreground: oklch(0 0 0);
-  --sidebar-primary: oklch(0.65 0.2 200);
-  --sidebar-primary-foreground: oklch(0 0 0);
-  --sidebar-accent: oklch(0.95 0 0);
-  --sidebar-accent-foreground: oklch(0 0 0);
-  --sidebar-border: oklch(0 0 0);
-  --sidebar-ring: oklch(0.65 0.2 200);
-  
-  /* Clinical Performance Brutalism Custom Colors */
-  --clinical-cyan: oklch(0.65 0.2 200);
-  --clinical-green: oklch(0.7 0.15 150);
-  --clinical-red: oklch(0.6 0.25 25);
-  --brutal-black: oklch(0 0 0);
-  --brutal-white: oklch(1 0 0);
-  --brutal-gray: oklch(0.5 0 0);
+  --border: color-mix(in srgb, #B6B1C0 30%, transparent);
+  --input: color-mix(in srgb, #F6F6F6 80%, transparent);
+  --ring: #F3BA60;
+  --chart-1: #F3BA60;
+  --chart-2: #E0DBF3;
+  --chart-3: #B6B1C0;
+  --chart-4: #736A6A;
+  --chart-5: #202022;
+  --sidebar: color-mix(in srgb, #F6F6F6 60%, transparent);
+  --sidebar-foreground: #202022;
+  --sidebar-primary: #F3BA60;
+  --sidebar-primary-foreground: #202022;
+  --sidebar-accent: #E0DBF3;
+  --sidebar-accent-foreground: #202022;
+  --sidebar-border: color-mix(in srgb, #B6B1C0 30%, transparent);
+  --sidebar-ring: #F3BA60;
 }
 
 .dark {
-  /* Clinical Performance Brutalism - Dark Mode (Default) */
-  /* High contrast: Pure black background, white text, medical cyan/green accents */
-  --background: oklch(0.05 0 0);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.08 0 0);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.08 0 0);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.65 0.2 200);
-  --primary-foreground: oklch(0.05 0 0);
-  --secondary: oklch(0.12 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.12 0 0);
-  --muted-foreground: oklch(0.6 0 0);
-  --accent: oklch(0.7 0.15 150);
-  --accent-foreground: oklch(0.05 0 0);
+  /* Dark mode - Using exact hex codes from palette */
+  /* Lead #202022 as dark background, Crunch #F3BA60 as primary, Chinese Silver #E0DBF3 and Dreamland #B6B1C0 as accents */
+  --background: #202022;
+  --foreground: #F6F6F6;
+  --card: color-mix(in srgb, #202022 40%, transparent);
+  --card-foreground: #F6F6F6;
+  --popover: color-mix(in srgb, #202022 75%, transparent);
+  --popover-foreground: #F6F6F6;
+  --primary: #F3BA60;
+  --primary-foreground: #202022;
+  --secondary: #B6B1C0;
+  --secondary-foreground: #F6F6F6;
+  --muted: #736A6A;
+  --muted-foreground: #B6B1C0;
+  --accent: #E0DBF3;
+  --accent-foreground: #202022;
   --destructive: oklch(0.65 0.25 25);
-  --border: oklch(0.98 0 0);
-  --input: oklch(0.08 0 0);
-  --ring: oklch(0.65 0.2 200);
-  --chart-1: oklch(0.65 0.2 200);
-  --chart-2: oklch(0.7 0.15 150);
-  --chart-3: oklch(0.55 0.2 280);
-  --chart-4: oklch(0.65 0.25 25);
-  --chart-5: oklch(0.5 0.2 60);
-  --sidebar: oklch(0.08 0 0);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.65 0.2 200);
-  --sidebar-primary-foreground: oklch(0.05 0 0);
-  --sidebar-accent: oklch(0.12 0 0);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.98 0 0);
-  --sidebar-ring: oklch(0.65 0.2 200);
+  --border: color-mix(in srgb, #B6B1C0 20%, transparent);
+  --input: color-mix(in srgb, #202022 60%, transparent);
+  --ring: #F3BA60;
+  --chart-1: #F3BA60;
+  --chart-2: #E0DBF3;
+  --chart-3: #B6B1C0;
+  --chart-4: #736A6A;
+  --chart-5: #F6F6F6;
+  --sidebar: color-mix(in srgb, #202022 50%, transparent);
+  --sidebar-foreground: #F6F6F6;
+  --sidebar-primary: #F3BA60;
+  --sidebar-primary-foreground: #202022;
+  --sidebar-accent: #B6B1C0;
+  --sidebar-accent-foreground: #F6F6F6;
+  --sidebar-border: color-mix(in srgb, #B6B1C0 30%, transparent);
+  --sidebar-ring: #F3BA60;
 }
 
 @layer base {
@@ -132,48 +125,50 @@
   
   body {
     @apply bg-background text-foreground;
-  }
-  
-  /* Subtle grid pattern overlay - very subtle, doesn't interfere with content */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
+    /* Background gradients using exact palette colors */
     background-image: 
-      linear-gradient(var(--foreground) 1px, transparent 1px),
-      linear-gradient(90deg, var(--foreground) 1px, transparent 1px);
-    background-size: 20px 20px;
-    opacity: 0.02;
+      radial-gradient(circle at 20% 30%, color-mix(in srgb, #F3BA60 10%, transparent) 0%, transparent 60%),
+      radial-gradient(circle at 80% 70%, color-mix(in srgb, #E0DBF3 8%, transparent) 0%, transparent 60%),
+      radial-gradient(circle at 50% 50%, color-mix(in srgb, #B6B1C0 5%, transparent) 0%, transparent 70%);
+    background-attachment: fixed;
+  }
+  
+  /* Fix Next.js portal sizing issues */
+  nextjs-portal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
     pointer-events: none;
-    z-index: 0;
+    z-index: 9999;
   }
   
-  .dark body::before {
-    opacity: 0.03;
+  nextjs-portal > * {
+    pointer-events: auto;
   }
   
-  /* Ensure all content is above the grid */
+  /* Ensure all content is above background */
   main, aside, [data-slot] {
     position: relative;
     z-index: 1;
   }
   
-  /* Brutalist typography - bold, technical, high contrast */
+  /* Glassmorphism typography - smooth, elegant */
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
   
-  /* Sharp, instant transitions for brutalist feel */
+  /* macOS/iOS native smooth transitions */
   * {
-    transition-property: color, background-color, border-color;
-    transition-timing-function: linear;
-    transition-duration: 100ms;
+    transition-property: color, background-color, border-color, opacity, transform, backdrop-filter, box-shadow;
+    transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-duration: 250ms;
   }
   
-  /* Strong borders everywhere */
+  /* Subtle borders for glassmorphism */
   button, input, textarea, select {
-    border-width: 2px;
+    border-width: 1px;
   }
 }

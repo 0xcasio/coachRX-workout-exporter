@@ -32,36 +32,36 @@ export function StatsOverview({ workouts }: StatsOverviewProps) {
 
     return (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card className="border-2 border-border">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 border-b-2 border-border">
-                    <CardTitle className="text-xs font-bold uppercase tracking-wide">Current Streak</CardTitle>
-                    <Flame className="h-4 w-4 text-primary" strokeWidth={2.5} />
+            <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 border-b border-white/10">
+                    <CardTitle className="text-xs font-medium">Current Streak</CardTitle>
+                    <Flame className="h-4 w-4 text-primary" strokeWidth={2} />
                 </CardHeader>
                 <CardContent className="pt-4">
-                    <div className="text-3xl font-bold font-mono">{streak}</div>
-                    <p className="text-xs text-muted-foreground uppercase font-mono mt-1">
+                    <div className="text-3xl font-semibold">{streak}</div>
+                    <p className="text-xs text-muted-foreground mt-1">
                         Days
                     </p>
                 </CardContent>
             </Card>
 
-            <Card className="border-2 border-border">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 border-b-2 border-border">
-                    <CardTitle className="text-xs font-bold uppercase tracking-wide">Weekly Goal</CardTitle>
-                    <Trophy className="h-4 w-4 text-primary" strokeWidth={2.5} />
+            <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 border-b border-white/10">
+                    <CardTitle className="text-xs font-medium">Weekly Goal</CardTitle>
+                    <Trophy className="h-4 w-4 text-primary" strokeWidth={2} />
                 </CardHeader>
                 <CardContent className="pt-4">
-                    <div className="text-3xl font-bold font-mono">{weeklyProgress} / {weeklyGoal}</div>
-                    <p className="text-xs text-muted-foreground uppercase font-mono mt-1">
+                    <div className="text-3xl font-semibold">{weeklyProgress} / {weeklyGoal}</div>
+                    <p className="text-xs text-muted-foreground mt-1">
                         This Week
                     </p>
                 </CardContent>
             </Card>
 
-            <Card className="col-span-2 border-2 border-border">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 border-b-2 border-border">
-                    <CardTitle className="text-xs font-bold uppercase tracking-wide">Weekly Activity</CardTitle>
-                    <Activity className="h-4 w-4 text-primary" strokeWidth={2.5} />
+            <Card className="col-span-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 border-b border-white/10">
+                    <CardTitle className="text-xs font-medium">Weekly Activity</CardTitle>
+                    <Activity className="h-4 w-4 text-primary" strokeWidth={2} />
                 </CardHeader>
                 <CardContent className="h-[100px] pt-4 min-w-0">
                     <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
@@ -72,22 +72,19 @@ export function StatsOverview({ workouts }: StatsOverviewProps) {
                                 fontSize={10}
                                 tickLine={false}
                                 axisLine={false}
-                                className="font-mono uppercase"
                             />
                             <Tooltip
                                 contentStyle={{ 
                                     background: 'var(--card)', 
-                                    border: '2px solid var(--border)',
-                                    borderRadius: '0',
-                                    fontFamily: 'var(--font-mono)',
-                                    textTransform: 'uppercase',
+                                    border: '1px solid var(--border)',
+                                    borderRadius: '12px',
                                 }}
                                 cursor={{ fill: 'var(--muted)' }}
                             />
                             <Bar
                                 dataKey="workouts"
                                 fill="var(--primary)"
-                                radius={0}
+                                radius={[8, 8, 0, 0]}
                             />
                         </BarChart>
                     </ResponsiveContainer>
