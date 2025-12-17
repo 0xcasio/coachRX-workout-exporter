@@ -63,8 +63,8 @@ export function StatsOverview({ workouts }: StatsOverviewProps) {
                     <CardTitle className="text-xs font-bold uppercase tracking-wide">Weekly Activity</CardTitle>
                     <Activity className="h-4 w-4 text-primary" strokeWidth={2.5} />
                 </CardHeader>
-                <CardContent className="h-[100px] pt-4">
-                    <ResponsiveContainer width="100%" height="100%">
+                <CardContent className="h-[100px] pt-4 min-w-0">
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                         <BarChart data={chartData}>
                             <XAxis
                                 dataKey="day"
