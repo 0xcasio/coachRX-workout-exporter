@@ -1,4 +1,4 @@
-# CoachRX Data Liberation
+# CoachRX Data Exporter
 
 > **From static screenshots to actionable SQL data.**
 
@@ -48,7 +48,7 @@ This project demonstrates a modern "AI-native" web architecture, optimizing for 
 
 1.  **Clone & Install**
     ```bash
-    git clone https://github.com/YOUR_USERNAME/coachrx-export.git
+    git clone https://github.com/0xcasio/coachRX-workout-exporter.git
     cd coachrx-export
     npm install
     ```

@@ -123,8 +123,8 @@ export default function WorkoutDetailPage() {
                                     </>
                                 ) : (
                                     <>
-                                        <h1 className="text-3xl font-bold">{workout.title}</h1>
-                                        <div className="flex items-center text-muted-foreground gap-2 mt-1">
+                                        <h1 className="text-3xl lg:text-4xl font-bold uppercase tracking-tight">{workout.title}</h1>
+                                        <div className="flex items-center text-muted-foreground gap-2 mt-2 font-mono uppercase">
                                             <Calendar className="w-4 h-4" />
                                             {workout.date}
                                         </div>
@@ -161,18 +161,18 @@ export default function WorkoutDetailPage() {
                     {/* Exercise Groups */}
                     <div className="space-y-6">
                         {workout.exercise_groups.map((group, idx) => (
-                            <Card key={idx}>
-                                <CardHeader className="pb-3">
-                                    <CardTitle className="text-lg font-semibold text-primary">
+                            <Card key={idx} className="border-2 border-border hover:border-primary hover:shadow-[0_0_0_2px_rgb(var(--primary))] transition-all group">
+                                <CardHeader className="pb-3 border-b-2 border-border">
+                                    <CardTitle className="text-lg font-bold uppercase text-primary">
                                         {group.group_id}
                                     </CardTitle>
                                 </CardHeader>
-                                <CardContent className="space-y-6">
+                                <CardContent className="space-y-6 pt-4">
                                     {group.exercises.map((exercise, exIdx) => (
-                                        <div key={exIdx} className="space-y-3 pb-4 last:pb-0 border-b last:border-0">
+                                        <div key={exIdx} className="space-y-3 pb-4 last:pb-0 border-b-2 border-border last:border-0 group-hover:border-primary/50 transition-colors">
                                             <div className="flex justify-between items-start gap-3">
                                                 <div className="flex items-center gap-3 flex-1">
-                                                    <span className="text-sm font-bold text-primary bg-primary/10 px-2.5 py-1 rounded-md shrink-0">
+                                                    <span className="text-sm font-bold text-primary-foreground bg-primary border-2 border-primary px-2.5 py-1 shrink-0 uppercase font-mono">
                                                         {group.group_id}{exIdx + 1}
                                                     </span>
                                                     {isEditing && editedWorkout ? (
@@ -186,8 +186,8 @@ export default function WorkoutDetailPage() {
                                                             className="font-medium text-lg h-auto border-0 px-2 focus-visible:ring-1"
                                                         />
                                                     ) : (
-                                                        <Link href={`/exercises/${encodeURIComponent(exercise.name || 'unknown')}`} className="hover:underline">
-                                                            <h3 className="font-medium text-lg">{exercise.name || 'Unknown Exercise'}</h3>
+                                                        <Link href={`/exercises/${encodeURIComponent(exercise.name || 'unknown')}`} className="hover:text-primary transition-colors">
+                                                            <h3 className="font-bold text-lg uppercase">{exercise.name || 'Unknown Exercise'}</h3>
                                                         </Link>
                                                     )}
                                                 </div>
@@ -203,15 +203,15 @@ export default function WorkoutDetailPage() {
                                                         className="text-sm font-mono w-24 h-8"
                                                     />
                                                 ) : (
-                                                    <span className="text-sm font-mono bg-muted px-2 py-1 rounded">
+                                                    <span className="text-sm font-mono border-2 border-border bg-card px-2 py-1 uppercase">
                                                         {exercise.tempo}
                                                     </span>
                                                 )}
                                             </div>
 
                                             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
-                                                <div>
-                                                    <span className="text-muted-foreground block text-xs uppercase tracking-wider">Sets</span>
+                                                <div className="border-2 border-border p-2 group-hover:border-primary/50 transition-colors">
+                                                    <span className="text-muted-foreground block text-xs uppercase tracking-wider font-bold mb-1">Sets</span>
                                                     {isEditing && editedWorkout ? (
                                                         <Input
                                                             type="number"
@@ -224,11 +224,11 @@ export default function WorkoutDetailPage() {
                                                             className="h-8 mt-1"
                                                         />
                                                     ) : (
-                                                        <span className="font-medium">{exercise.sets}</span>
+                                                        <span className="font-bold font-mono text-lg">{exercise.sets}</span>
                                                     )}
                                                 </div>
-                                                <div>
-                                                    <span className="text-muted-foreground block text-xs uppercase tracking-wider">Reps</span>
+                                                <div className="border-2 border-border p-2 group-hover:border-primary/50 transition-colors">
+                                                    <span className="text-muted-foreground block text-xs uppercase tracking-wider font-bold mb-1">Reps</span>
                                                     {isEditing && editedWorkout ? (
                                                         <Input
                                                             value={editedWorkout.exercise_groups[idx].exercises[exIdx].rep_range || ""}
@@ -241,11 +241,11 @@ export default function WorkoutDetailPage() {
                                                             className="h-8 mt-1"
                                                         />
                                                     ) : (
-                                                        <span className="font-medium">{exercise.rep_range}</span>
+                                                        <span className="font-bold font-mono text-lg">{exercise.rep_range}</span>
                                                     )}
                                                 </div>
-                                                <div>
-                                                    <span className="text-muted-foreground block text-xs uppercase tracking-wider">Rest</span>
+                                                <div className="border-2 border-border p-2 group-hover:border-primary/50 transition-colors">
+                                                    <span className="text-muted-foreground block text-xs uppercase tracking-wider font-bold mb-1">Rest</span>
                                                     {isEditing && editedWorkout ? (
                                                         <Input
                                                             type="number"
@@ -258,20 +258,20 @@ export default function WorkoutDetailPage() {
                                                             className="h-8 mt-1"
                                                         />
                                                     ) : (
-                                                        <span className="font-medium">{exercise.rest_seconds}s</span>
+                                                        <span className="font-bold font-mono text-lg">{exercise.rest_seconds}s</span>
                                                     )}
                                                 </div>
                                                 {exercise.rpe && (
-                                                    <div>
-                                                        <span className="text-muted-foreground block text-xs uppercase tracking-wider">RPE</span>
-                                                        <span className="font-medium">{exercise.rpe}</span>
+                                                    <div className="border-2 border-border p-2 group-hover:border-primary/50 transition-colors">
+                                                        <span className="text-muted-foreground block text-xs uppercase tracking-wider font-bold mb-1">RPE</span>
+                                                        <span className="font-bold font-mono text-lg">{exercise.rpe}</span>
                                                     </div>
                                                 )}
                                             </div>
 
                                             {(exercise.notes || isEditing) && (
-                                                <div className="bg-muted/50 p-3 rounded-md text-sm">
-                                                    <span className="font-semibold text-xs uppercase tracking-wider block mb-1 text-muted-foreground">Notes / Weight</span>
+                                                <div className="border-2 border-border bg-card p-3 text-sm group-hover:border-primary/50 transition-colors">
+                                                    <span className="font-bold text-xs uppercase tracking-wider block mb-1 text-muted-foreground">Notes / Weight</span>
                                                     {isEditing && editedWorkout ? (
                                                         <Textarea
                                                             value={editedWorkout.exercise_groups[idx].exercises[exIdx].notes || ""}

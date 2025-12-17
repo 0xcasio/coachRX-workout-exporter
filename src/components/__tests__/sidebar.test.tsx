@@ -1,5 +1,7 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Sidebar } from '../Sidebar';
+import { ThemeProvider } from '../theme-provider';
 import { describe, it, expect, vi } from 'vitest';
 
 // Mock Clerk hooks
@@ -24,16 +26,22 @@ vi.mock('next/navigation', () => ({
 }));
 
 describe('Sidebar', () => {
+    const renderWithTheme = (component: React.ReactElement) => {
+        return render(<ThemeProvider>{component}</ThemeProvider>);
+    };
+
     it('renders correctly', () => {
-        render(<Sidebar />);
+        renderWithTheme(<Sidebar />);
         expect(screen.getByText('🏋️ CoachRX')).toBeDefined();
-        // Dashboard and My Workouts appear twice (Desktop and Mobile)
+        // Dashboard appears twice (Desktop and Mobile)
         expect(screen.getAllByText('Dashboard')).toHaveLength(2);
-        expect(screen.getAllByText('My Workouts')).toHaveLength(2);
+        // "My Workouts" appears on desktop, "Workouts" on mobile
+        expect(screen.getByText('My Workouts')).toBeDefined();
+        expect(screen.getByText('Workouts')).toBeDefined();
     });
 
     it('displays user info when signed in', () => {
-        render(<Sidebar />);
+        renderWithTheme(<Sidebar />);
         expect(screen.getByText('Test User')).toBeDefined();
         expect(screen.getByText('test@example.com')).toBeDefined();
         expect(screen.getAllByTestId('user-button')).toHaveLength(2); // Desktop and Mobile

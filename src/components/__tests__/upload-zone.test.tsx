@@ -9,7 +9,7 @@ global.URL.revokeObjectURL = vi.fn();
 describe('UploadZone', () => {
     it('renders correctly', () => {
         render(<UploadZone onUpload={() => { }} isProcessing={false} />);
-        expect(screen.getByText('Drop screenshots here')).toBeDefined();
+        expect(screen.getByText('Drop Screenshots Here')).toBeDefined();
     });
 
     it('displays file preview when file is selected', async () => {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { UploadZone } from "@/components/upload-zone";
 import { DatePicker } from "@/components/date-picker";
 import { processImageAction } from "@/app/actions";
@@ -18,8 +19,14 @@ import { StatsOverview } from "@/components/stats-overview";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { GymCostCard } from "@/components/gym-cost/dashboard-card";
+import { LandingPage } from "@/components/landing-page";
 
-export default function Home() {
+/**
+ * Dashboard Component
+ * 
+ * The authenticated user dashboard with workout upload, stats, and recent workouts.
+ */
+function Dashboard() {
   const { saveWorkout, getWorkouts, isSignedIn } = useWorkoutStorage();
   const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -187,15 +194,14 @@ export default function Home() {
   };
 
   return (
-    <>
-      <main className="min-h-screen bg-background p-8 pb-20 md:pb-8">
-        <div className="max-w-4xl mx-auto space-y-12">
-          <header className="text-center space-y-4">
-            <h1 className="text-4xl font-bold tracking-tight">CoachRX Data Liberation</h1>
-            <p className="text-xl text-muted-foreground">
-              Own your CoachRX data, no need to ask your coach for it.
-            </p>
-          </header>
+    <main className="min-h-screen bg-background p-8 pb-20 md:pb-8">
+      <div className="max-w-4xl mx-auto space-y-12">
+        <header className="text-center space-y-4 border-b-2 border-border pb-8">
+          <h1 className="text-4xl lg:text-5xl font-bold uppercase tracking-tight">Dashboard</h1>
+          <p className="text-xl text-muted-foreground font-mono uppercase">
+            Your Workout Data Hub
+          </p>
+        </header>
 
 
 
@@ -245,10 +251,10 @@ export default function Home() {
 
           {recentWorkouts.length > 0 && (
             <section className="space-y-6">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-semibold">Recent Workouts</h2>
+              <div className="flex items-center justify-between border-b-2 border-border pb-4">
+                <h2 className="text-2xl lg:text-3xl font-bold uppercase tracking-tight">Recent Workouts</h2>
                 <Link href="/workouts">
-                  <Button variant="ghost" className="gap-2">
+                  <Button variant="outline" className="gap-2 uppercase font-bold">
                     View All <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
@@ -257,18 +263,18 @@ export default function Home() {
               <div className="grid gap-4 md:grid-cols-3">
                 {recentWorkouts.map((workout) => (
                   <Link key={workout.id} href={`/workouts/${workout.id}`}>
-                    <Card className="hover:bg-muted/50 transition-all duration-200 hover:shadow-md cursor-pointer h-full">
-                      <CardHeader className="space-y-1">
-                        <CardTitle className="text-base line-clamp-1">
+                    <Card className="border-2 border-border hover:border-primary hover:shadow-[4px_4px_0_0_rgb(var(--primary))] transition-all cursor-pointer h-full">
+                      <CardHeader className="space-y-2">
+                        <CardTitle className="text-base font-bold uppercase line-clamp-1">
                           {workout.title}
                         </CardTitle>
-                        <div className="flex items-center text-sm text-muted-foreground gap-2">
+                        <div className="flex items-center text-xs text-muted-foreground gap-2 font-mono uppercase">
                           <Calendar className="w-3 h-3" />
                           {workout.date}
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <div className="flex items-center gap-2 text-sm">
+                        <div className="flex items-center gap-2 text-sm font-bold uppercase">
                           <Dumbbell className="w-4 h-4" />
                           {workout.exercise_groups.reduce((acc, g) => acc + g.exercises.length, 0)} Exercises
                         </div>
@@ -281,6 +287,25 @@ export default function Home() {
           )}
         </div>
       </main>
+  );
+}
+
+/**
+ * Home Page
+ * 
+ * Conditionally renders:
+ * - Landing page for signed-out users
+ * - Dashboard for signed-in users
+ */
+export default function Home() {
+  return (
+    <>
+      <SignedOut>
+        <LandingPage />
+      </SignedOut>
+      <SignedIn>
+        <Dashboard />
+      </SignedIn>
     </>
   );
 }
