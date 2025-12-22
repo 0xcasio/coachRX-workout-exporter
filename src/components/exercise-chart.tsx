@@ -34,8 +34,8 @@ export function ExerciseChart({ data }: ExerciseChartProps) {
                 <CardTitle>Weight Progression</CardTitle>
             </CardHeader>
             <CardContent className="px-2">
-                <div className="h-[300px] w-full min-w-0">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
+                <div className="h-[300px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={chartData} margin={{ top: 5, right: 10, left: 10, bottom: 0 }}>
                             <CartesianGrid strokeDasharray="3 3" vertical={false} />
                             <XAxis

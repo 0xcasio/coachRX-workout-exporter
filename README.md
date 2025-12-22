@@ -2,17 +2,19 @@
 
 > **From static screenshots to actionable SQL data.**
 
-## 📖 The Story
+## The Story
 
-### The Problem: Data Jail
-I rely on CoachRX for my daily programming, and it's fantastic. But as a user who loves data, I faced a wall: my workout history was trapped in this app. 
+### The Problem: Data vendor lockup
+I rely on CoachRX for my daily programming, and it's fantastic. But as a user who loves data and have full control of it, I faced a wall: my workout history was trapped in this app. 
 
-After a few months of training, I was able to access my workouts, but no way of exporting them.
+After a few months of training, I was able to access my workouts, but no way of exporting them for further analysis.
 
-Another problem was that sometimes the coachRX app had this annoying bug where my workout history would not be saved.
+Another problem I encountared was this annoying bug where my workout history would not be saved and I will miss that day workout analytics.
 
-### The Solution: "See" the Data
+### The Solution: "own" your workout journal 
 I built this tool to own my workout data and use it any way I wanted to. Data analysis, social media posting, a backup, or just to have a record of my progress in case I need to switch to a different app. 
+
+I see this as my workout iCloud that no matter what app I use in the present/future. I can look through my workout journal as long as I have an internet connection.
 
 **The Pipeline:**
 1.  **Drop**: Drag and drop raw screenshots from the CoachRX app.
