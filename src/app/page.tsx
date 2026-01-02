@@ -185,7 +185,7 @@ function Dashboard() {
       if (processedWorkouts.length === 1) {
         router.push(`/workouts/${processedWorkouts[0].id}`);
       } else {
-        router.push('/workouts');
+        router.push('/workout-history');
       }
     }
 
@@ -253,7 +253,7 @@ function Dashboard() {
             <section className="space-y-6">
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
                 <h2 className="text-2xl lg:text-3xl font-semibold tracking-tight">Recent Workouts</h2>
-                <Link href="/workouts">
+                <Link href="/workout-history">
                   <Button variant="outline" className="gap-2">
                     View All <ArrowRight className="w-4 h-4" />
                   </Button>

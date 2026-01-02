@@ -85,8 +85,8 @@ export default function WorkoutDetailPage() {
                 <main className="min-h-screen bg-background p-8 flex items-center justify-center">
                     <div className="text-center space-y-4">
                         <h1 className="text-2xl font-bold">Workout Not Found</h1>
-                        <Link href="/workouts">
-                            <Button>Back to Library</Button>
+                        <Link href="/workout-history">
+                            <Button>Back to Workout History</Button>
                         </Link>
                     </div>
                 </main>
@@ -101,7 +101,7 @@ export default function WorkoutDetailPage() {
                     {/* Header */}
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4 flex-1">
-                            <Link href="/workouts">
+                            <Link href="/workout-history">
                                 <Button variant="ghost" size="icon">
                                     <ArrowLeft className="w-5 h-5" />
                                 </Button>

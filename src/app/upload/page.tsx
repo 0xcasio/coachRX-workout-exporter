@@ -152,7 +152,7 @@ export default function UploadPage() {
             if (processedWorkouts.length === 1) {
                 router.push(`/workouts/${processedWorkouts[0].id}`);
             } else {
-                router.push('/workouts');
+                router.push('/workout-history');
             }
         }
 

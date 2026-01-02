@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserButton, useUser, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-import { Home, Dumbbell, User, Plus, DollarSign } from "lucide-react";
+import { Home, Dumbbell, User, Plus, DollarSign, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -13,7 +13,8 @@ export function Sidebar() {
 
     const links = [
         { href: "/", label: "Dashboard", icon: Home },
-        { href: "/workouts", label: "My Workouts", icon: Dumbbell },
+        { href: "/workouts", label: "Exercises", icon: Dumbbell },
+        { href: "/workout-history", label: "Workout History", icon: Calendar },
         { href: "/gym-cost", label: "Gym Cost", icon: DollarSign },
     ];
 
@@ -73,7 +74,7 @@ export function Sidebar() {
 
             {/* Mobile Bottom Nav */}
             <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-t border-white/10 z-50" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
-                <div className="relative grid grid-cols-5 h-16 items-center">
+                <div className="relative grid grid-cols-6 h-16 items-center">
                     {/* Dashboard - Column 1 */}
                     <Link
                         href="/"
@@ -84,11 +85,11 @@ export function Sidebar() {
                                 : "text-muted-foreground hover:text-foreground"
                         )}
                     >
-                        <Home className="w-6 h-6" />
-                        <span className="text-[10px] font-medium">Dashboard</span>
+                        <Home className="w-5 h-5" />
+                        <span className="text-[9px] font-medium">Dashboard</span>
                     </Link>
 
-                    {/* My Workouts - Column 2 */}
+                    {/* Exercises - Column 2 */}
                     <Link
                         href="/workouts"
                         className={cn(
@@ -98,22 +99,36 @@ export function Sidebar() {
                                 : "text-muted-foreground hover:text-foreground"
                         )}
                     >
-                        <Dumbbell className="w-6 h-6" />
-                        <span className="text-[10px] font-medium">Workouts</span>
+                        <Dumbbell className="w-5 h-5" />
+                        <span className="text-[9px] font-medium">Exercises</span>
                     </Link>
 
-                    {/* Upload CTA - Column 3 (Center) */}
+                    {/* Workout History - Column 3 */}
+                    <Link
+                        href="/workout-history"
+                        className={cn(
+                            "flex flex-col items-center gap-1 justify-center h-full",
+                            pathname === "/workout-history"
+                                ? "text-primary"
+                                : "text-muted-foreground hover:text-foreground"
+                        )}
+                    >
+                        <Calendar className="w-5 h-5" />
+                        <span className="text-[9px] font-medium">History</span>
+                    </Link>
+
+                    {/* Upload CTA - Column 4 (Center) */}
                     <Link
                         href="/upload"
                         className="flex flex-col items-center justify-end h-full pb-1"
                     >
-                        <div className="bg-primary text-primary-foreground border border-primary/50 rounded-full p-4 hover:shadow-xl hover:shadow-primary/30 transition-all -mt-8">
-                            <Plus className="w-7 h-7" />
+                        <div className="bg-primary text-primary-foreground border border-primary/50 rounded-full p-3 hover:shadow-xl hover:shadow-primary/30 transition-all -mt-8">
+                            <Plus className="w-6 h-6" />
                         </div>
-                        <span className="text-[10px] font-medium text-primary mt-1">Upload</span>
+                        <span className="text-[9px] font-medium text-primary mt-1">Upload</span>
                     </Link>
 
-                    {/* Gym Cost - Column 4 */}
+                    {/* Gym Cost - Column 5 */}
                     <Link
                         href="/gym-cost"
                         className={cn(
@@ -123,11 +138,11 @@ export function Sidebar() {
                                 : "text-muted-foreground hover:text-foreground"
                         )}
                     >
-                        <DollarSign className="w-6 h-6" />
-                        <span className="text-[10px] font-medium">Cost</span>
+                        <DollarSign className="w-5 h-5" />
+                        <span className="text-[9px] font-medium">Cost</span>
                     </Link>
 
-                    {/* User Profile - Column 5 */}
+                    {/* User Profile - Column 6 */}
                     <div className="flex flex-col items-center gap-1 justify-center h-full">
                         <SignedIn>
                             <UserButton afterSignOutUrl="/" />
@@ -135,8 +150,8 @@ export function Sidebar() {
                         <SignedOut>
                             <SignInButton mode="modal">
                                 <button className="flex flex-col items-center gap-1 text-muted-foreground">
-                                    <User className="w-6 h-6" />
-                                    <span className="text-[10px] font-medium">Sign In</span>
+                                    <User className="w-5 h-5" />
+                                    <span className="text-[9px] font-medium">Sign In</span>
                                 </button>
                             </SignInButton>
                         </SignedOut>
