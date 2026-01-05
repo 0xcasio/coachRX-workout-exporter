@@ -6,6 +6,13 @@ import { Workout } from "@/lib/types";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import Link from "next/link";
 import { ArrowLeft, Search, Dumbbell, Plus } from "lucide-react";
 import { WorkoutSkeleton } from "@/components/skeleton";
@@ -15,10 +22,13 @@ interface ExerciseInfo {
     sessionCount: number;
 }
 
+type SortOption = "sessions-desc" | "name-asc" | "name-desc";
+
 export default function WorkoutsPage() {
     const { getWorkouts } = useWorkoutStorage();
     const [workouts, setWorkouts] = useState<Workout[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const [sortBy, setSortBy] = useState<SortOption>("sessions-desc");
     const [loading, setLoading] = useState(true);
 
     const loadWorkouts = useCallback(async () => {
@@ -53,21 +63,36 @@ export default function WorkoutsPage() {
         });
 
         return Array.from(exerciseMap.entries())
-            .map(([name, sessionCount]) => ({ name, sessionCount }))
-            .sort((a, b) => a.name.localeCompare(b.name));
+            .map(([name, sessionCount]) => ({ name, sessionCount }));
     }, [workouts]);
 
-    // Filter exercises by search query
-    const filteredExercises = useMemo(() => {
-        if (!searchQuery.trim()) {
-            return exerciseInfo;
+    // Filter and sort exercises
+    const filteredAndSortedExercises = useMemo(() => {
+        // First filter by search query
+        let filtered = exerciseInfo;
+        if (searchQuery.trim()) {
+            const query = searchQuery.toLowerCase();
+            filtered = exerciseInfo.filter(ex => 
+                ex.name.toLowerCase().includes(query)
+            );
         }
-        
-        const query = searchQuery.toLowerCase();
-        return exerciseInfo.filter(ex => 
-            ex.name.toLowerCase().includes(query)
-        );
-    }, [exerciseInfo, searchQuery]);
+
+        // Then sort based on selected option
+        const sorted = [...filtered];
+        switch (sortBy) {
+            case "sessions-desc":
+                sorted.sort((a, b) => b.sessionCount - a.sessionCount);
+                break;
+            case "name-asc":
+                sorted.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            case "name-desc":
+                sorted.sort((a, b) => b.name.localeCompare(a.name));
+                break;
+        }
+
+        return sorted;
+    }, [exerciseInfo, searchQuery, sortBy]);
 
     return (
         <>
@@ -102,19 +127,37 @@ export default function WorkoutsPage() {
                                 className="pl-9"
                             />
                         </div>
+                        <div className="flex items-center gap-2 w-full sm:w-auto">
+                            <Select value={sortBy} onValueChange={(value: SortOption) => setSortBy(value)}>
+                                <SelectTrigger className="w-full sm:w-[180px]">
+                                    <SelectValue placeholder="Sort by" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="sessions-desc">
+                                        Most Sessions
+                                    </SelectItem>
+                                    <SelectItem value="name-asc">
+                                        Name (A-Z)
+                                    </SelectItem>
+                                    <SelectItem value="name-desc">
+                                        Name (Z-A)
+                                    </SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
                     </div>
 
                     <div className="grid gap-4">
                         {loading ? (
                             Array.from({ length: 3 }).map((_, i) => <WorkoutSkeleton key={i} />)
-                        ) : filteredExercises.length === 0 ? (
+                        ) : filteredAndSortedExercises.length === 0 ? (
                             <div className="text-center py-12 text-muted-foreground border border-white/10 rounded-xl p-8 bg-card/40 backdrop-blur-sm">
                                 {searchQuery.trim()
                                     ? "No exercises found matching your search."
                                     : "No exercises found."}
                             </div>
                         ) : (
-                            filteredExercises.map((exercise) => (
+                            filteredAndSortedExercises.map((exercise) => (
                                 <Link key={exercise.name} href={`/exercises/${encodeURIComponent(exercise.name)}`}>
                                     <Card className="hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 transition-all group cursor-pointer">
                                         <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2 border-b border-white/10">

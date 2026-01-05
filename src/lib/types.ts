@@ -43,3 +43,15 @@ export interface ProcessingStatus {
   error?: string;
   result?: Workout;
 }
+
+export interface ExerciseMetadata {
+  id: string;
+  exercise_name: string;
+  primary_muscles: string[];
+  secondary_muscles?: string[];
+  exercise_type?: string;
+  benefits?: string[];
+  description?: string;
+  created_at: string;
+  updated_at: string;
+}

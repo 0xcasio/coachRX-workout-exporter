@@ -8,7 +8,10 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Dumbbell } from "lucide-react";
 import { ExerciseChart } from "@/components/exercise-chart";
+import { ExerciseMuscleInfo } from "@/components/exercise-muscle-info";
 import { extractWeight } from "@/lib/utils";
+import { ExerciseMetadata } from "@/lib/types";
+import { getExerciseMuscleInfo } from "@/app/actions";
 
 import { ExerciseCardSkeleton } from "@/components/skeleton";
 
@@ -18,6 +21,8 @@ export default function ExerciseHistoryPage() {
     const { getExerciseHistory } = useWorkoutStorage();
     const [history, setHistory] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [muscleMetadata, setMuscleMetadata] = useState<ExerciseMetadata | null>(null);
+    const [muscleLoading, setMuscleLoading] = useState(true);
 
     const loadHistory = useCallback(async () => {
         try {
@@ -34,6 +39,26 @@ export default function ExerciseHistoryPage() {
     useEffect(() => {
         loadHistory();
     }, [loadHistory]);
+
+    // Load muscle metadata
+    useEffect(() => {
+        const loadMuscleInfo = async () => {
+            try {
+                setMuscleLoading(true);
+                const metadata = await getExerciseMuscleInfo(name);
+                setMuscleMetadata(metadata);
+            } catch (error) {
+                console.error("Error loading muscle information:", error);
+                setMuscleMetadata(null);
+            } finally {
+                setMuscleLoading(false);
+            }
+        };
+
+        if (name) {
+            loadMuscleInfo();
+        }
+    }, [name]);
 
     // Calculate max weight
     const maxWeight = history.reduce((max, entry) => {
@@ -90,6 +115,23 @@ export default function ExerciseHistoryPage() {
                     ) : (
                         <>
                             <ExerciseChart data={chartData} />
+
+                            {/* Muscle Information Section */}
+                            {muscleLoading ? (
+                                <Card className="border-white/10 bg-card/40 backdrop-blur-sm">
+                                    <CardContent className="p-6">
+                                        <div className="space-y-4">
+                                            <div className="flex gap-2">
+                                                <div className="h-8 bg-muted rounded animate-pulse w-24" />
+                                                <div className="h-8 bg-muted rounded animate-pulse w-24" />
+                                                <div className="h-8 bg-muted rounded animate-pulse w-24" />
+                                            </div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            ) : muscleMetadata ? (
+                                <ExerciseMuscleInfo metadata={muscleMetadata} />
+                            ) : null}
 
                             <div className="space-y-4">
                                 <h2 className="text-xl font-semibold">History</h2>
